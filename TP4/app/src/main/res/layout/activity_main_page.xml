@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_page"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="50sp"
+    android:paddingRight="50sp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+
+    android:orientation="vertical"
+    android:weightSum="3"
+    android:background="#ffffff"
+    tools:context="org.lauriault.tp3.GUI.MainPage">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75sp"
+        android:orientation="horizontal"
+        android:background="#ffffff">
+
+
+        <Button
+            android:id="@+id/scannerButton"
+            android:layout_width="100sp"
+            android:layout_height="match_parent"
+            android:text="SCANNER"
+            android:layout_marginLeft="-4sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+             />
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:gravity="center|left"
+            android:layout_margin="0sp"
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/payButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="PAYER"
+            android:layout_margin="10sp"
+            android:layout_gravity="center|right"
+            />
+    </LinearLayout>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"/>
+</LinearLayout>
