@@ -13,7 +13,7 @@
     android:orientation="vertical"
     android:weightSum="3"
     android:background="#ffffff"
-    tools:context="org.lauriault.tp3.GUI.MainPage">
+    tools:context="org.Leblanc_Lauriault.tp3.GUI.MainPage">
 
 
     <LinearLayout
