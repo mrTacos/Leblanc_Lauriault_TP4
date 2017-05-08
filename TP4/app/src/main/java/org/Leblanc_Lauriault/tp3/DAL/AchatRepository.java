@@ -96,7 +96,7 @@ public class AchatRepository implements CRUD<Achat>
         synchronized (classe)
         {
             // set the id
-            if (a.getId() == null)
+            if ((Long)a.getId() == null)
                 a.setId(this.nextAvailableId());
 
             String serialise = gson.toJson(a);
@@ -181,6 +181,7 @@ public class AchatRepository implements CRUD<Achat>
 
     /**
      * Permet d'obtenir le prochain ID disponible pour nommer le fichier.
+     * @return
      * @return
      */
     private long nextAvailableId()

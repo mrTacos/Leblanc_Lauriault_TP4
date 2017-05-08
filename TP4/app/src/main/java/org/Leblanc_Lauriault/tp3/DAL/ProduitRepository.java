@@ -58,7 +58,6 @@ public class ProduitRepository implements CRUD<Produit>
 
     public Produit getRandomProduct() throws EmptyInventoryException
     {
-
         synchronized (classe)
         {
             List<Produit> products = this.getAll();
@@ -110,7 +109,7 @@ public class ProduitRepository implements CRUD<Produit>
         synchronized (classe)
         {
             // set the id
-            if (a.getId() == null)
+            if ((Long)a.getId() == null)
                 a.setId(this.nextAvailableId());
             //
             String serialise = gson.toJson(a);

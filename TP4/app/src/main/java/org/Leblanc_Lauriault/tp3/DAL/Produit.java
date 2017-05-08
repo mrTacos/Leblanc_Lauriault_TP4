@@ -1,6 +1,7 @@
 package org.Leblanc_Lauriault.tp3.DAL;
 
 import org.Leblanc_Lauriault.tp3.Exception.BadlyFormedUPCException;
+import org.Leblanc_Lauriault.tp3.Helper.BarcodeValidator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -8,20 +9,16 @@ import java.util.regex.Pattern;
 
 import static android.R.attr.description;
 
-public class Produit {
+public class Produit implements IEntity {
 	
 	private Long id;
 	private String nom;
 	private String upc;
 	private Integer quantite;
-<<<<<<< HEAD
 	private double prixAvantTaxe;
 	private TaxeType typeTaxe;
-=======
-	private double prixUnitaire;
 	private boolean deuxPourUn;
 
->>>>>>> 24d54cb851fd2e8fd422b196edab2f247f0855f6
 
 
 	public String getUpc() {
@@ -36,6 +33,8 @@ public class Produit {
 			throw new BadlyFormedUPCException("Le UPC doit être exactement 12 chiffre de long");
 		if (!Pattern.matches("[0-9]+", upc))
 			throw new BadlyFormedUPCException("Le upc contient des lettres !");
+        if(!BarcodeValidator.isUPCValid(upc))
+            throw new BadlyFormedUPCException("Le upc ne respecte pas les normes de validation standard");
 		this.upc = upc;
 	}
 
@@ -62,7 +61,7 @@ public class Produit {
 			throw new IllegalArgumentException("Le Id doit être de 1 et plus");
 		this.id = i;
 	}
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -111,8 +110,6 @@ public class Produit {
 	{
 		return this.prixAvantTaxe * this.typeTaxe.valeurEnPourcentage;
 	}
-<<<<<<< HEAD
-=======
 
 	public boolean isDeuxPourUn() {
 		return deuxPourUn;
@@ -121,7 +118,6 @@ public class Produit {
 	public void setDeuxPourUn(boolean deuxPourUn) {
 		this.deuxPourUn = deuxPourUn;
 	}
->>>>>>> 24d54cb851fd2e8fd422b196edab2f247f0855f6
 
 	@Override
 	public String toString() {

@@ -5,8 +5,7 @@ import org.Leblanc_Lauriault.tp3.Exception.BadProductException;
 import java.util.Date;
 import java.util.List;
 
-public class Achat
-{
+public class Achat implements IEntity {
     private Long ID;
     private List<Produit> produits;
     private Date dateAchat;
@@ -30,10 +29,10 @@ public class Achat
         }
         return complete;
     }
-    public Long getId() {
+    public long getId() {
         return ID;
     }
-    public void setId(Long ID) {
+    public void setId(long ID) {
         this.ID = ID;
     }
     public List<Produit> getProduits() {

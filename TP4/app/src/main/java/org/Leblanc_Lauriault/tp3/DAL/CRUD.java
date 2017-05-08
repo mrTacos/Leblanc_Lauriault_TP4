@@ -9,7 +9,7 @@ public interface CRUD<T> {
 
     long save(T o);
 
-    T getById(Long p);
+    Object getById(Long p);
 
     List<T> getAll();
 
