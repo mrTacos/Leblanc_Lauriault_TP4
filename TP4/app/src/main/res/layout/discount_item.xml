@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:id="@+id/discount_produit"
+        android:layout_width="200sp"
+        android:layout_height="fill_parent"
+        android:layout_weight="2"
+        android:gravity="center|left"
+        android:text="Le nom de l'item"
+        android:textSize="20sp"
+        android:paddingLeft="30pt"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <CheckBox
+        android:id="@+id/produit_checkbox"
+        android:layout_width="20sp"
+        android:layout_height="fill_parent"
+        android:layout_weight="2"/>
+
+</LinearLayout>

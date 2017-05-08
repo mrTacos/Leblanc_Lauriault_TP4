@@ -14,8 +14,14 @@ public class Produit {
 	private String nom;
 	private String upc;
 	private Integer quantite;
+<<<<<<< HEAD
 	private double prixAvantTaxe;
 	private TaxeType typeTaxe;
+=======
+	private double prixUnitaire;
+	private boolean deuxPourUn;
+
+>>>>>>> 24d54cb851fd2e8fd422b196edab2f247f0855f6
 
 
 	public String getUpc() {
@@ -105,6 +111,17 @@ public class Produit {
 	{
 		return this.prixAvantTaxe * this.typeTaxe.valeurEnPourcentage;
 	}
+<<<<<<< HEAD
+=======
+
+	public boolean isDeuxPourUn() {
+		return deuxPourUn;
+	}
+
+	public void setDeuxPourUn(boolean deuxPourUn) {
+		this.deuxPourUn = deuxPourUn;
+	}
+>>>>>>> 24d54cb851fd2e8fd422b196edab2f247f0855f6
 
 	@Override
 	public String toString() {
