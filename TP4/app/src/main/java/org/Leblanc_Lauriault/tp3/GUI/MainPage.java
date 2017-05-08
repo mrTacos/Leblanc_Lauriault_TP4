@@ -258,7 +258,7 @@ public class MainPage extends AppCompatActivity {
         for (int i =0;i <customAdapter.getCount();i++ ){
 
             prod = (Produit) customAdapter.getItem(i);
-            count += prod.getPrixUnitaire() * prod.getQuantite();
+            count += prod.getPrixAvantTaxe() * prod.getQuantite();
         }
         String mT = String.valueOf(count);
         t.setText(String.format("%.2f$",count));
@@ -310,7 +310,7 @@ public class MainPage extends AppCompatActivity {
 
                     Produit p = new Produit();
                     p.setUpc(barCode);
-                    p.setPrixUnitaire(Double.parseDouble(itemPrice.getText().toString()));
+                    p.setPrixAvantTaxe(Double.parseDouble(itemPrice.getText().toString()));
                     p.setNom(itemName.getText().toString());
                     p.setQuantite(10);
                     produitService.addProduct(p);

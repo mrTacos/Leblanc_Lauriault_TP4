@@ -51,7 +51,7 @@ public class TestBuyService
             p.setId(i);
             p.setQuantite(1);
             p.setUpc("11111111111" + i);
-            p.setPrixUnitaire(10);
+            p.setPrixAvantTaxe(10);
             p.setNom("Produit " + i);
             pToAdd.add(p);
             pService.addProduct(p);
@@ -77,7 +77,7 @@ public class TestBuyService
             p.setId(i);
             p.setQuantite(1);
             p.setUpc("11111111111" + i);
-            p.setPrixUnitaire(10);
+            p.setPrixAvantTaxe(10);
             p.setNom("Produit " + i);
             pToAdd.add(p);
             pService.addProduct(p);
@@ -97,7 +97,7 @@ public class TestBuyService
             p.setId(i);
             p.setQuantite(1);
             p.setUpc("11111111111" + i);
-            p.setPrixUnitaire(10);
+            p.setPrixAvantTaxe(10);
             p.setNom("Produit " + i);
             pToAdd.add(p);
             pService.addProduct(p);
@@ -118,7 +118,7 @@ public class TestBuyService
             p.setId(i);
             p.setQuantite(1);
             p.setUpc("11111111111" + i);
-            p.setPrixUnitaire(10);
+            p.setPrixAvantTaxe(10);
             p.setNom("Produit " + i);
             pToAdd.add(p);
             pService.addProduct(p);

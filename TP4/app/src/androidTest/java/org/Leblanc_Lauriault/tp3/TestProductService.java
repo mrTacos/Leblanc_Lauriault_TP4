@@ -44,7 +44,7 @@ public class TestProductService
     public void testAddProductAndGetAll(){
         Produit p = new Produit();
         p.setNom("Produit Test");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("221122221122");
         this.pService.addProduct(p);
@@ -59,7 +59,7 @@ public class TestProductService
     {
         Produit p = new Produit();
         p.setNom("");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("221122221122");
         this.pService.addProduct(p);
@@ -72,7 +72,7 @@ public class TestProductService
     {
         Produit p = new Produit();
         p.setNom("test");
-        p.setPrixUnitaire(-10);
+        p.setPrixAvantTaxe(-10);
         p.setQuantite(1);
         p.setUpc("221122221122");
         this.pService.addProduct(p);
@@ -86,7 +86,7 @@ public class TestProductService
     {
         Produit p = new Produit();
         p.setNom("test");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(-1);
         p.setUpc("221122221122");
         this.pService.addProduct(p);
@@ -100,7 +100,7 @@ public class TestProductService
     {
         Produit p = new Produit();
         p.setNom("test");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("11");
         this.pService.addProduct(p);
@@ -113,7 +113,7 @@ public class TestProductService
     {
         Produit p = new Produit();
         p.setNom("test");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("1111111111111111111");
         this.pService.addProduct(p);
@@ -125,7 +125,7 @@ public class TestProductService
         Produit p = new Produit();
         p.setId(-1);
         p.setNom("test");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("111111111111");
         this.pService.addProduct(p);
@@ -138,7 +138,7 @@ public class TestProductService
     {
         Produit p = new Produit();
         p.setNom("Produit Test");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("1111111111a1");
         this.pService.addProduct(p);
@@ -154,7 +154,7 @@ public class TestProductService
     {
         Produit p = new Produit();
         p.setNom("Produit Test");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("221122221122");
         this.pService.addProduct(p);
@@ -171,7 +171,7 @@ public class TestProductService
     {
         Produit p = new Produit();
         p.setNom("Produit Test");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("221122221122");
         this.pService.addProduct(p);
@@ -207,7 +207,7 @@ public class TestProductService
     {
         Produit p = new Produit();
         p.setNom("Produit Test 1");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("112233445566");
         this.pService.addProduct(p);
@@ -224,13 +224,13 @@ public class TestProductService
         Produit p = null;
         p = new Produit();
         p.setNom("Produit Test 1");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("112233445566");
         this.pService.addProduct(p);
         p = new Produit();
         p.setNom("Produit Test 2");
-        p.setPrixUnitaire(10);
+        p.setPrixAvantTaxe(10);
         p.setQuantite(1);
         p.setUpc("665544332211");
         this.pService.addProduct(p);

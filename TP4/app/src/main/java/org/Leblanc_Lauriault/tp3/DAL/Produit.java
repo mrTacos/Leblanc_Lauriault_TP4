@@ -14,11 +14,8 @@ public class Produit {
 	private String nom;
 	private String upc;
 	private Integer quantite;
-	private double prixUnitaire;
-
-
-
-
+	private double prixAvantTaxe;
+	private TaxeType typeTaxe;
 
 
 	public String getUpc() {
@@ -37,7 +34,8 @@ public class Produit {
 	}
 
 
-	public Integer getQuantite() {
+	public Integer getQuantite()
+	{
 		return quantite;
 	}
 
@@ -47,8 +45,6 @@ public class Produit {
 			throw new IllegalArgumentException("quantité null");
 		if (quantite < 0)
 			throw new IllegalArgumentException("Une quantité négative est impossible");
-
-
 		this.quantite = quantite;
 	}
 
@@ -79,32 +75,41 @@ public class Produit {
 
 		this.nom = nom;
 	}
-	public double getPrixUnitaire()
+
+    public TaxeType getTypeTaxe()
+    {
+        return typeTaxe;
+    }
+
+    public void setTypeTaxe(TaxeType typeTaxe)
+    {
+        this.typeTaxe = typeTaxe;
+    }
+
+    public double getPrixAvantTaxe()
 	{
-		BigDecimal bd = new BigDecimal(prixUnitaire);
+		BigDecimal bd = new BigDecimal(prixAvantTaxe);
 		bd = bd.setScale(2, RoundingMode.HALF_UP);
 		return bd.doubleValue();
 	}
-	public void setPrixUnitaire(double prixUnitaire)
+	public void setPrixAvantTaxe(double prixAvantTaxe)
 	{
-
-
-		if (prixUnitaire < 0.01)
+		if (prixAvantTaxe < 0.01)
 			throw new IllegalArgumentException("Le prix ne peut être plus petit qu'un sous");
 
-		BigDecimal bd = new BigDecimal(prixUnitaire);
+		BigDecimal bd = new BigDecimal(prixAvantTaxe);
 		bd = bd.setScale(2, RoundingMode.HALF_UP);
-		this.prixUnitaire = bd.doubleValue();
+		this.prixAvantTaxe = bd.doubleValue();
 	}
-
-
-	public Produit(){}
-
+	public double getPrixApresTaxe()
+	{
+		return this.prixAvantTaxe * this.typeTaxe.valeurEnPourcentage;
+	}
 
 	@Override
 	public String toString() {
 		return "Produit [id=" + id + ", nom=" + nom
-				+ ", description=" + description +  ", prixUnitaire=" + prixUnitaire +  ", quantité=" + quantite + "]";
+				+ ", description=" + description +  ", prixAvantTaxe=" + prixAvantTaxe +  ", quantité=" + quantite + "]";
 	}
 
 	@Override
@@ -116,7 +121,6 @@ public class Produit {
 
 		if (!id.equals(produit.id)) return false;
 		return upc.equals(produit.upc);
-
 	}
 
 	@Override

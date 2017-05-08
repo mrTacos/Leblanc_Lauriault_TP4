@@ -64,7 +64,7 @@ public class ProduitService
             p = new Produit();
             p.setNom(productName[i]);
             p.setUpc(productUPC[i]);
-            p.setPrixUnitaire(productPrice[i]);
+            p.setPrixAvantTaxe(productPrice[i]);
             p.setQuantite(10);
             this.produitRepository.save(p);
         }

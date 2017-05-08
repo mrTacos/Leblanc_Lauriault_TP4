@@ -50,7 +50,6 @@ public class AchatRepository implements CRUD<Achat>
             {
                 try
                 {
-                    //System.out.println("File is "+f.getName());
                     if (f.isDirectory())
                         continue;
 

@@ -16,7 +16,7 @@ public class Achat
         Double total = 0d;
         for (Produit item:this.produits)
         {
-            total+= (item.getPrixUnitaire() * item.getQuantite());
+            total+= (item.getPrixAvantTaxe() * item.getQuantite());
         }
         return total;
     }
