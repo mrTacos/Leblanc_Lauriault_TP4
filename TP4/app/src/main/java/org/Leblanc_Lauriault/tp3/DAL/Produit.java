@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 import static android.R.attr.description;
 
-public class Produit {
+
 public class Produit implements IEntity {
 	
 	private Long id;
@@ -63,7 +63,7 @@ public class Produit implements IEntity {
 			throw new IllegalArgumentException("Le Id doit être de 1 et plus");
 		this.id = i;
 	}
-	public Long getId() {
+
 	public long getId() {
 		return id;
 	}
