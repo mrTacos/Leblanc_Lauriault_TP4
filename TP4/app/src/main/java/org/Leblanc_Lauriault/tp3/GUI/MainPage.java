@@ -242,6 +242,11 @@ public class MainPage extends AppCompatActivity {
             Toast.makeText(this, "Produits de l'inventaire supprimés !", Toast.LENGTH_SHORT).show();
             return true;
         }
+        if(id == R.id.action_modifyDiscount)
+        {
+
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

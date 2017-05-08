@@ -15,9 +15,7 @@ public class Produit {
 	private String upc;
 	private Integer quantite;
 	private double prixUnitaire;
-
-
-
+	private boolean deuxPourUn;
 
 
 
@@ -97,9 +95,13 @@ public class Produit {
 		this.prixUnitaire = bd.doubleValue();
 	}
 
+	public boolean isDeuxPourUn() {
+		return deuxPourUn;
+	}
 
-	public Produit(){}
-
+	public void setDeuxPourUn(boolean deuxPourUn) {
+		this.deuxPourUn = deuxPourUn;
+	}
 
 	@Override
 	public String toString() {

@@ -26,4 +26,10 @@
         android:title="Supprimer l'inventaire"
         android:orderInCategory="103"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_modifyDiscount"
+        android:title="Appliquer des rabais"
+        android:orderInCategory="104"
+        app:showAsAction="never" />
 </menu>
