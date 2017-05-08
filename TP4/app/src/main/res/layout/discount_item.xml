@@ -18,6 +18,8 @@
         android:id="@+id/produit_checkbox"
         android:layout_width="20sp"
         android:layout_height="fill_parent"
-        android:layout_weight="2"/>
+        android:layout_weight="1"
+        android:scaleX="1.5"
+        android:scaleY="1.5"/>
 
 </LinearLayout>
