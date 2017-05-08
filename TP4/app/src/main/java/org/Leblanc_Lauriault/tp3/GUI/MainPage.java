@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class MainPage extends AppCompatActivity {
     private ProduitService produitService;
     private AchatService achatService;
     private CustomAdapter customAdapter;
+    private DiscountAdapter discountAdapter;
     //private ProduitRepository produitRepo;
     private CRUD<Achat> achatRepo;
     public Bus bus = new Bus(ThreadEnforcer.ANY);
@@ -213,7 +215,11 @@ public class MainPage extends AppCompatActivity {
         this.calculateTotalOrderPrice();
         this.customAdapter.notifyDataSetChanged();
     }
-
+    @Subscribe
+    public void changeCheck(Produit p)
+    {
+        p.setDeuxPourUn(!p.isDeuxPourUn());
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -244,7 +250,23 @@ public class MainPage extends AppCompatActivity {
         }
         if(id == R.id.action_modifyDiscount)
         {
-
+            /*View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
+            ListView lv = (ListView) findViewById(R.id.discountListView);
+            discountAdapter = new DiscountAdapter(this,currentProductList);
+            lv.setAdapter(discountAdapter);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
+            builder.setView(view);
+            Button save = (Button)view.findViewById(R.id.saveButtonDiscount);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+            save.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view)
+                {
+                    dialog.dismiss();
+                }
+            });
+            */
             return true;
         }
         return super.onOptionsItemSelected(item);
