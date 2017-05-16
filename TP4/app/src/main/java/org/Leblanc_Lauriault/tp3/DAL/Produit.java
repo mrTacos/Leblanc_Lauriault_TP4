@@ -122,6 +122,12 @@ public class Produit implements IEntity {
 		this.deuxPourUn = deuxPourUn;
 	}
 
+
+	public Produit()
+	{
+		this.id = -1l;
+	}
+
 	@Override
 	public String toString() {
 		return "Produit [id=" + id + ", nom=" + nom

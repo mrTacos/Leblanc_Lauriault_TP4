@@ -209,7 +209,7 @@ public class TestProductService
         p.setNom("Produit Test 1");
         p.setPrixAvantTaxe(10);
         p.setQuantite(1);
-        p.setUpc("112233445566");
+        p.setUpc("892685001003");
         this.pService.addProduct(p);
         this.pService.removeInventory();
         assertEquals(0,this.pService.getAllProducts().size());
@@ -226,20 +226,22 @@ public class TestProductService
         p.setNom("Produit Test 1");
         p.setPrixAvantTaxe(10);
         p.setQuantite(1);
-        p.setUpc("112233445566");
+        p.setUpc("987654321098");
         this.pService.addProduct(p);
         p = new Produit();
         p.setNom("Produit Test 2");
         p.setPrixAvantTaxe(10);
         p.setQuantite(1);
-        p.setUpc("665544332211");
+        p.setUpc("892685001003");
         this.pService.addProduct(p);
         p = this.pService.getRandomProduct();
         assertFalse(p == null);
-        assertTrue(p.getUpc().equals("112233445566") ||p.getUpc().equals("665544332211") );
+        assertTrue(p.getUpc().equals("987654321098") ||p.getUpc().equals("892685001003") );
         this.pService.removeInventory();
         p = this.pService.getRandomProduct();
         assertEquals(null,p);
     }
+
+
 
 }

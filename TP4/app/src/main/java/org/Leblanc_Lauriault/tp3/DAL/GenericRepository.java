@@ -36,7 +36,7 @@ public class GenericRepository<T extends IEntity> implements CRUD<T>
         synchronized (classe)
         {
             // set the id
-            if ((Long)o.getId() == null)
+            if (o.getId() == -1)
                 o.setId(this.nextAvailableId());
 
             String serialise = gson.toJson(o);

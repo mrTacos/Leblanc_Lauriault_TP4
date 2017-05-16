@@ -109,7 +109,7 @@ public class ProduitRepository implements CRUD<Produit>
         synchronized (classe)
         {
             // set the id
-            if ((Long)a.getId() == null)
+            if (a.getId() == -1)
                 a.setId(this.nextAvailableId());
             //
             String serialise = gson.toJson(a);

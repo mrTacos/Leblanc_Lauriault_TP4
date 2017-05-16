@@ -38,6 +38,10 @@ public class Achat implements IEntity {
     public List<Produit> getProduits() {
         return produits;
     }
+    public Achat()
+    {
+        this.ID = -1l;
+    }
     public void setProduits(List<Produit> produits)
     {
         if (produits == null)

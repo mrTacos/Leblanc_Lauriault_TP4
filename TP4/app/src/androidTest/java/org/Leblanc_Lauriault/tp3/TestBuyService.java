@@ -45,23 +45,40 @@ public class TestBuyService
     {
         List<Produit> pToAdd = new ArrayList<>();
         Produit p;
-        for (int i = 1; i < 6; i++)
-        {
-            p = new Produit();
-            p.setId(i);
-            p.setQuantite(1);
-            p.setUpc("11111111111" + i);
-            p.setPrixAvantTaxe(10);
-            p.setNom("Produit " + i);
-            pToAdd.add(p);
-            pService.addProduct(p);
-        }
+
+        p = new Produit();
+        p.setId(1);
+        p.setQuantite(1);
+        p.setUpc("892685001003");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 1");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
+        p = new Produit();
+        p.setId(2);
+        p.setQuantite(1);
+        p.setUpc("036000291452");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 2");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
+        p = new Produit();
+        p.setId(3);
+        p.setQuantite(1);
+        p.setUpc("188114771211");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 3");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
         Date before = new Date();
         long seconds = before.getTime()/1000l;
         aService = new AchatService(InstrumentationRegistry.getTargetContext(),pToAdd);
         aService.payForProducts();
         Assert.assertEquals(1,aService.getAllBuys().size());
-        Assert.assertEquals(50d,aService.getAllBuys().get(0).getTotal(),0.0);
+        Assert.assertEquals(30d,aService.getAllBuys().get(0).getTotal(),0.0);
         Assert.assertTrue(aService.getAllBuys().get(0).getCompleteDescription() != "");
         Assert.assertEquals(seconds,aService.getAllBuys().get(0).getDateAchat().getTime()/1000l,1);
     }
@@ -71,37 +88,69 @@ public class TestBuyService
     {
         List<Produit> pToAdd = new ArrayList<>();
         Produit p;
-        for (int i = 1; i < 6; i++)
-        {
-            p = new Produit();
-            p.setId(i);
-            p.setQuantite(1);
-            p.setUpc("11111111111" + i);
-            p.setPrixAvantTaxe(10);
-            p.setNom("Produit " + i);
-            pToAdd.add(p);
-            pService.addProduct(p);
-        }
+
+        p = new Produit();
+        p.setId(1);
+        p.setQuantite(1);
+        p.setUpc("892685001003");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 1");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
+        p = new Produit();
+        p.setId(2);
+        p.setQuantite(1);
+        p.setUpc("036000291452");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 2");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
+        p = new Produit();
+        p.setId(3);
+        p.setQuantite(1);
+        p.setUpc("188114771211");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 3");
+        pToAdd.add(p);
+        pService.addProduct(p);
         aService = new AchatService(InstrumentationRegistry.getTargetContext(),pToAdd);
         aService.payForProducts();
-        Assert.assertEquals(50d,aService.getAllBuys().get(0).getTotal(),0.0);
+        Assert.assertEquals(30d,aService.getAllBuys().get(0).getTotal(),0.0);
     }
     @Test
     public void testDeleteAll()
     {
         List<Produit> pToAdd = new ArrayList<>();
         Produit p;
-        for (int i = 1; i < 6; i++)
-        {
-            p = new Produit();
-            p.setId(i);
-            p.setQuantite(1);
-            p.setUpc("11111111111" + i);
-            p.setPrixAvantTaxe(10);
-            p.setNom("Produit " + i);
-            pToAdd.add(p);
-            pService.addProduct(p);
-        }
+        p = new Produit();
+        p.setId(1);
+        p.setQuantite(1);
+        p.setUpc("892685001003");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 1");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
+        p = new Produit();
+        p.setId(2);
+        p.setQuantite(1);
+        p.setUpc("036000291452");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 2");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
+        p = new Produit();
+        p.setId(3);
+        p.setQuantite(1);
+        p.setUpc("188114771211");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 3");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
         aService = new AchatService(InstrumentationRegistry.getTargetContext(),pToAdd);
         aService.payForProducts();
         aService.deleteAllBuyLog();
@@ -112,17 +161,32 @@ public class TestBuyService
     {
         List<Produit> pToAdd = new ArrayList<>();
         Produit p;
-        for (int i = 1; i < 6; i++)
-        {
-            p = new Produit();
-            p.setId(i);
-            p.setQuantite(1);
-            p.setUpc("11111111111" + i);
-            p.setPrixAvantTaxe(10);
-            p.setNom("Produit " + i);
-            pToAdd.add(p);
-            pService.addProduct(p);
-        }
+        p = new Produit();
+        p.setId(1);
+        p.setQuantite(1);
+        p.setUpc("892685001003");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 1");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
+        p = new Produit();
+        p.setId(2);
+        p.setQuantite(1);
+        p.setUpc("036000291452");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 2");
+        pToAdd.add(p);
+        pService.addProduct(p);
+
+        p = new Produit();
+        p.setId(3);
+        p.setQuantite(1);
+        p.setUpc("188114771211");
+        p.setPrixAvantTaxe(10);
+        p.setNom("Produit 3");
+        pToAdd.add(p);
+        pService.addProduct(p);
         aService = new AchatService(InstrumentationRegistry.getTargetContext(),pToAdd);
         aService.payForProducts();
 

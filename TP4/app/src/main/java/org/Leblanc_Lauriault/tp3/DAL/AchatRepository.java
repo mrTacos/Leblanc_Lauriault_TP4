@@ -96,7 +96,7 @@ public class AchatRepository implements CRUD<Achat>
         synchronized (classe)
         {
             // set the id
-            if ((Long)a.getId() == null)
+            if (a.getId() == -1)
                 a.setId(this.nextAvailableId());
 
             String serialise = gson.toJson(a);
