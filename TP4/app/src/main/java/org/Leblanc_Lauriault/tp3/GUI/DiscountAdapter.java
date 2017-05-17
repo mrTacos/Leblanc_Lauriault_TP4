@@ -58,7 +58,6 @@ public class DiscountAdapter extends ArrayAdapter<Produit> {
                 e.produit = (Produit)checkBox.getTag();
                 e.produit.setDeuxPourUn(!e.produit.isDeuxPourUn());
                 apService.modifierProduit(e.produit);
-                bus.post(e);
             }
         });
         return v;

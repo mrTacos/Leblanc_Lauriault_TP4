@@ -1,10 +1,9 @@
 package org.Leblanc_Lauriault.tp3.change;
 
-import org.lauriault.ArgentObjet;
-import org.lauriault.TiroirCaisse;
-import org.lauriault.exception.ArgentManquantException;
-import org.lauriault.exception.EmplacementPleinException;
-import org.lauriault.exception.RetraitPiece1sException;
+
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.ArgentManquantException;
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.EmplacementPleinException;
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.RetraitPiece1sException;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;

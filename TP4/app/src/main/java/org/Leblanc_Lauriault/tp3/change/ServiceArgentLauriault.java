@@ -1,12 +1,9 @@
 package org.Leblanc_Lauriault.tp3.change;
 
-import org.lauriault.ArgentObjet;
-import org.lauriault.Change;
-import org.lauriault.TiroirCaisse;
-import org.lauriault.exception.ArrondiNombreNegatifException;
-import org.lauriault.exception.MontantInatteignableException;
-import org.lauriault.exception.TransactionMontantInvalidException;
-import org.lauriault.service.ServiceArgent;
+
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.ArrondiNombreNegatifException;
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.MontantInatteignableException;
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.TransactionMontantInvalidException;
 
 import java.util.ArrayList;
 import java.util.List;
