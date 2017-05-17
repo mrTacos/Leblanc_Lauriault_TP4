@@ -303,7 +303,7 @@ public class MainPage extends AppCompatActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
         builder.setView(view);
         final ListView lv2 = (ListView) view.findViewById(R.id.payListView);
-        payAdapter = new PayAdapter(this,this.tcll,)
+       //payAdapter = new PayAdapter(this,this.tcll,)
         payAdapter.notifyDataSetChanged();
         lv2.setAdapter(payAdapter);
         final AlertDialog dialog = builder.create();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
 import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
+import org.Leblanc_Lauriault.tp3.DAL.TaxeType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,6 +47,7 @@ public class TestBuyService
         p.setUpc("892685001003");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 1");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
 
@@ -55,6 +57,7 @@ public class TestBuyService
         p.setUpc("036000291452");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 2");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
 
@@ -64,6 +67,7 @@ public class TestBuyService
         p.setUpc("188114771211");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 3");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
 
@@ -72,7 +76,7 @@ public class TestBuyService
         apService.setProductList(pToAdd);
         apService.payerLesProduit();
         Assert.assertEquals(1,apService.obtenirTousLesAchats().size());
-        Assert.assertEquals(30d,apService.obtenirTousLesAchats().get(0).getTotal(),0.0);
+        Assert.assertEquals(31.5,apService.obtenirTousLesAchats().get(0).getTotal(),0.0);
         Assert.assertTrue(apService.obtenirTousLesAchats().get(0).getCompleteDescription() != "");
         Assert.assertEquals(seconds,apService.obtenirTousLesAchats().get(0).getDateAchat().getTime()/1000l,1);
     }
@@ -89,6 +93,7 @@ public class TestBuyService
         p.setUpc("892685001003");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 1");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
 
@@ -98,6 +103,7 @@ public class TestBuyService
         p.setUpc("036000291452");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 2");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
 
@@ -107,11 +113,12 @@ public class TestBuyService
         p.setUpc("188114771211");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 3");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
         apService.setProductList(pToAdd);
         apService.payerLesProduit();
-        Assert.assertEquals(30d,apService.obtenirTousLesAchats().get(0).getTotal(),0.0);
+        Assert.assertEquals(31.5,apService.obtenirTousLesAchats().get(0).getTotal(),0.0);
     }
     @Test
     public void testDeleteAll()
@@ -124,6 +131,7 @@ public class TestBuyService
         p.setUpc("892685001003");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 1");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
 
@@ -133,6 +141,7 @@ public class TestBuyService
         p.setUpc("036000291452");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 2");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
 
@@ -142,6 +151,7 @@ public class TestBuyService
         p.setUpc("188114771211");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 3");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
         apService.setProductList(pToAdd);
@@ -160,6 +170,7 @@ public class TestBuyService
         p.setUpc("892685001003");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 1");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
 
@@ -169,6 +180,7 @@ public class TestBuyService
         p.setUpc("036000291452");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 2");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
 
@@ -178,6 +190,7 @@ public class TestBuyService
         p.setUpc("188114771211");
         p.setPrixAvantTaxe(10);
         p.setNom("Produit 3");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         pToAdd.add(p);
         apService.addProduct(p);
         apService.setProductList(pToAdd);
