@@ -24,7 +24,6 @@ import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
 import org.Leblanc_Lauriault.tp3.DAL.AchatRepository;
 import org.Leblanc_Lauriault.tp3.DAL.CRUD;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
-import org.Leblanc_Lauriault.tp3.DAL.ProduitService;
 import org.Leblanc_Lauriault.tp3.Event.CheckEvent;
 import org.Leblanc_Lauriault.tp3.Event.ListUpdatedEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
@@ -58,6 +57,7 @@ public class MainPage extends AppCompatActivity {
         customAdapter = new CustomAdapter(this,currentProductList);
         lv.setAdapter(customAdapter);
 
+        discountAdapter = new DiscountAdapter(this,apService.getAllProducts());
 
         //Change the app name
         this.setTitle("CashDroid");
@@ -87,6 +87,7 @@ public class MainPage extends AppCompatActivity {
     //region Register / Unregister bus
     @Override
     protected void onPause() {
+        discountAdapter.bus.register(this);
         customAdapter.bus.unregister(this);
         this.apService.bus.unregister(this);
         super.onPause();
@@ -94,6 +95,7 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onResume()
     {
+        discountAdapter.bus.register(this);
         customAdapter.bus.register(this);
         this.apService.bus.register(this);
         super.onResume();
@@ -220,11 +222,6 @@ public class MainPage extends AppCompatActivity {
         this.calculateTotalOrderPrice();
         this.customAdapter.notifyDataSetChanged();
     }
-    /*@Subscribe
-    public void changeCheck(Produit p)
-    {
-        p.setDeuxPourUn(!p.isDeuxPourUn());
-    }*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -256,14 +253,9 @@ public class MainPage extends AppCompatActivity {
         if(id == R.id.action_modifyDiscount)
         {
             View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
-            ListView lv = (ListView) findViewById(R.id.discountListView);
-            discountAdapter = new DiscountAdapter(this,currentProductList);
-            lv.setAdapter(discountAdapter);
             final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
             builder.setView(view);
-            ListView lv2 = (ListView) view.findViewById(R.id.discountListView);
-            discountAdapter = new DiscountAdapter(this, produitService.getAllProducts());
-            discountAdapter.notifyDataSetChanged();
+            final ListView lv2 = (ListView) view.findViewById(R.id.discountListView);
             lv2.setAdapter(discountAdapter);
             Button save = (Button)view.findViewById(R.id.saveButtonDiscount);
             final AlertDialog dialog = builder.create();
@@ -285,7 +277,7 @@ public class MainPage extends AppCompatActivity {
     @Subscribe
     public void CheckUpdate(CheckEvent s)
     {
-        for (Produit p:produitService.getAllProducts())
+        for (Produit p:apService.getAllProducts())
         {
             if(s.produit.equals(p))
             {
