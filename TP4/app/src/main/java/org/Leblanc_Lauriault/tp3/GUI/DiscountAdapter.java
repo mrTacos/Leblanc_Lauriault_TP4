@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.squareup.otto.Bus;
@@ -40,11 +41,11 @@ public class DiscountAdapter extends ArrayAdapter<Produit> {
         LayoutInflater li = LayoutInflater.from(getContext());
         View v = li.inflate(R.layout.discount_item,parent,false);
         final Produit s = getItem(position);
-        final TextView itemName = (TextView) v.findViewById(R.id.item_produit);
+        final TextView itemName = (TextView) v.findViewById(R.id.discount_produit);
         final CheckBox checkBox = (CheckBox) v.findViewById(R.id.produit_checkbox);
-
         itemName.setText(s.getNom());
-        checkBox.setChecked(!checkBox.isChecked());
+        checkBox.setChecked(s.isDeuxPourUn());
+        checkBox.setTag(s);
 
         checkBox.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -55,6 +56,14 @@ public class DiscountAdapter extends ArrayAdapter<Produit> {
                 bus.post(e);
             }
         });
+        /*checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                CheckEvent e = new CheckEvent();
+                e.produit = (Produit)checkBox.getTag();
+                bus.post(e);
+            }
+        });*/
 
         return v;
     }

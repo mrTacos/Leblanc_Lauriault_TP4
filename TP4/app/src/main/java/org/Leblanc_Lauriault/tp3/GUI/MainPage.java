@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +25,7 @@ import org.Leblanc_Lauriault.tp3.DAL.AchatService;
 import org.Leblanc_Lauriault.tp3.DAL.CRUD;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
 import org.Leblanc_Lauriault.tp3.DAL.ProduitService;
+import org.Leblanc_Lauriault.tp3.Event.CheckEvent;
 import org.Leblanc_Lauriault.tp3.Event.ListUpdatedEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
 import org.Leblanc_Lauriault.tp3.Event.PlusEvent;
@@ -60,6 +60,7 @@ public class MainPage extends AppCompatActivity {
         lv.setAdapter(customAdapter);
         this.produitService = new ProduitService(this,this.currentProductList);
         this.achatService = new AchatService(this, this.currentProductList);
+
 
         //Change the app name
         this.setTitle("CashDroid");
@@ -215,11 +216,11 @@ public class MainPage extends AppCompatActivity {
         this.calculateTotalOrderPrice();
         this.customAdapter.notifyDataSetChanged();
     }
-    @Subscribe
+    /*@Subscribe
     public void changeCheck(Produit p)
     {
         p.setDeuxPourUn(!p.isDeuxPourUn());
-    }
+    }*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -250,15 +251,17 @@ public class MainPage extends AppCompatActivity {
         }
         if(id == R.id.action_modifyDiscount)
         {
-            /*View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
-            ListView lv = (ListView) findViewById(R.id.discountListView);
-            discountAdapter = new DiscountAdapter(this,currentProductList);
-            lv.setAdapter(discountAdapter);
+            View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
             final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
             builder.setView(view);
+            ListView lv2 = (ListView) view.findViewById(R.id.discountListView);
+            discountAdapter = new DiscountAdapter(this, produitService.getAllProducts());
+            discountAdapter.notifyDataSetChanged();
+            lv2.setAdapter(discountAdapter);
             Button save = (Button)view.findViewById(R.id.saveButtonDiscount);
             final AlertDialog dialog = builder.create();
             dialog.show();
+
             save.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view)
@@ -266,10 +269,22 @@ public class MainPage extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-            */
+
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe
+    public void CheckUpdate(CheckEvent s)
+    {
+        for (Produit p:produitService.getAllProducts())
+        {
+            if(s.produit.equals(p))
+            {
+                p.setDeuxPourUn(s.produit.isDeuxPourUn());
+            }
+        }
     }
 
     private void calculateTotalOrderPrice()
