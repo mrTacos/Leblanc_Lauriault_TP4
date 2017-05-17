@@ -9,7 +9,7 @@ import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TiroirCaisseLauriault implements TiroirCaisse
+public class TiroirCaisseLL implements TiroirCaisse
 {
 
     // Un dictionnaire avec la monaie, la quantité et la capacité
@@ -104,16 +104,16 @@ public class TiroirCaisseLauriault implements TiroirCaisse
         return this.maxBillet;
     }
 
-    public TiroirCaisseLauriault()
+    public TiroirCaisseLL()
     {
         this(false,false);
     }
 
-    public TiroirCaisseLauriault(boolean estMoitierPlein)
+    public TiroirCaisseLL(boolean estMoitierPlein)
     {
         this(estMoitierPlein,false);
     }
-    public TiroirCaisseLauriault(boolean estMoitierPlein, boolean aucunePiece)
+    public TiroirCaisseLL(boolean estMoitierPlein, boolean aucunePiece)
     {
         if (estMoitierPlein)
         {

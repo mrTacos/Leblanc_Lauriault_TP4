@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Représente du change (en ensemble de billet et de monnaie représentant une valeur total)
  */
-public class ChangeLauriault implements Change
+public class ChangeLL implements Change
 {
 
     // Liste contenant des tupple avec comme clee de l'argent et comme valeur le nombre de fois que l'argent apparait.
@@ -84,7 +84,7 @@ public class ChangeLauriault implements Change
         return tempValue;
     }
 
-    public ChangeLauriault()
+    public ChangeLL()
     {
         this.m_changeTotal = new HashMap<ArgentObjet, Integer>();
     }

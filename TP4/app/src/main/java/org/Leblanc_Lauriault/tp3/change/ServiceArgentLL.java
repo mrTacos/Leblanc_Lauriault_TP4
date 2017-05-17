@@ -9,22 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ServiceArgentLauriault implements ServiceArgent
+public class ServiceArgentLL implements ServiceArgent
 {
 
     private TiroirCaisse tcl;
 
-    public ServiceArgentLauriault()
+    public ServiceArgentLL()
     {
         this(false,false);
     }
-    public ServiceArgentLauriault(boolean estTiroirSpecial)
+    public ServiceArgentLL(boolean estTiroirSpecial)
     {
         this(estTiroirSpecial,false);
     }
-    public ServiceArgentLauriault(boolean estTiroirSpecial, boolean aucunePiece)
+    public ServiceArgentLL(boolean estTiroirSpecial, boolean aucunePiece)
     {
-        this.tcl = new TiroirCaisseLauriault(estTiroirSpecial,aucunePiece);
+        this.tcl = new TiroirCaisseLL(estTiroirSpecial,aucunePiece);
     }
 
 
@@ -57,7 +57,7 @@ public class ServiceArgentLauriault implements ServiceArgent
         List<ArgentObjet> tentativePasser = new ArrayList<ArgentObjet>();
         List<ArgentObjet> tentativeCourrant = new ArrayList<ArgentObjet>();
 
-        Change change = new ChangeLauriault();
+        Change change = new ChangeLL();
         double montantArrondi = montant;
         montantArrondi = arrondiA5sous(montantArrondi);
         int montantArrondiCent = (int) (montantArrondi * 100);
@@ -94,7 +94,7 @@ public class ServiceArgentLauriault implements ServiceArgent
                         tentativePasser.add(tentativeCourrant.get(0));
                         tentativeCourrant = new ArrayList<ArgentObjet>();
 
-                        change = new ChangeLauriault();
+                        change = new ChangeLL();
                         montantArrondiCent = (int) (montantArrondi * 100);
                         startingPointAfterFailure = tempTest;
                         continue;
@@ -197,7 +197,7 @@ public class ServiceArgentLauriault implements ServiceArgent
      */
     public ServiceArgent serviceAvecTiroirMoitiePlein()
     {
-        ServiceArgent tempSA = new ServiceArgentLauriault(true);
+        ServiceArgent tempSA = new ServiceArgentLL(true);
         return tempSA;
     }
 }
