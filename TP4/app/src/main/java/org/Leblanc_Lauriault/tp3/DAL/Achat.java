@@ -12,12 +12,74 @@ public class Achat implements IEntity {
 
     public Double getTotal()
     {
-        Double total = 0d;
-        for (Produit item:this.produits)
-        {
-            total+= (item.getPrixAvantTaxe() * item.getQuantite());
+        double total1 = 0;
+        double total2 = 0;
+        double total3 = 0;
+        double total4 = 0;
+
+        for (Produit p: this.produits
+                ) {
+            int a = p.getQuantite();
+
+            while(a > 0)
+            {
+                if(a%2 == 0)
+                {
+                    total1 += (a/2) * p.getPrixAvantTaxe();
+                    break;
+                }
+                else
+                {
+                    total1 += p.getPrixAvantTaxe();
+                    a--;
+                }
+            }
         }
-        return total;
+
+        for (Produit p: this.produits
+                ) {
+            int a = p.getQuantite();
+
+            while(a >0)
+            {
+                if(a%2 == 0)
+                {
+                    total2 += (a/2) * p.getPrixApresTaxe();
+                    a= 0;
+                }
+                else
+                {
+                    total2 += p.getPrixApresTaxe();
+                    a--;
+                }
+            }
+        }
+
+        for (Produit p: this.produits
+                ) {
+            total3 += p.getPrixAvantTaxe() * p.getQuantite();
+        }
+        for (Produit p: this.produits
+                ) {
+            total4 += p.getPrixApresTaxe() * p.getQuantite();
+        }
+
+        if(total1 < 100 || total3 <100)
+        {
+            if(total2 < total4)
+            {
+                return  total2;
+            }
+            return total4;
+        }
+        else
+        {
+            if(total1 < total3)
+            {
+                return total1;
+            }
+        }
+        return total3;
     }
     public String getCompleteDescription()
     {

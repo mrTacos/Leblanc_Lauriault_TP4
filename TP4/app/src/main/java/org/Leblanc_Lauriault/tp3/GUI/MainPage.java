@@ -24,6 +24,7 @@ import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
 import org.Leblanc_Lauriault.tp3.DAL.AchatRepository;
 import org.Leblanc_Lauriault.tp3.DAL.CRUD;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
+import org.Leblanc_Lauriault.tp3.DAL.TaxeType;
 import org.Leblanc_Lauriault.tp3.Event.CheckEvent;
 import org.Leblanc_Lauriault.tp3.Event.ListUpdatedEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
@@ -34,7 +35,9 @@ import org.Leblanc_Lauriault.tp3.Helper.ToastHelper;
 import org.Leblanc_Lauriault.tp3.change.TiroirCaisseLL;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainPage extends AppCompatActivity {
 
