@@ -117,56 +117,6 @@ public class MainPage extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
-
-    public static  double appliquerLesRabais(List<Produit> lstProduit)
-    {
-        double total1 = 0;
-        double total2 = 0;
-
-        for (Produit p: lstProduit
-             ) {
-            int a = p.getQuantite();
-
-            while(a > 0)
-            {
-                if(a%2 == 0)
-                {
-                    total1 += (a/2) * p.getPrixAvantTaxe();
-                    break;
-                }
-                else
-                {
-                    total1 += p.getPrixAvantTaxe();
-                    a--;
-                }
-            }
-        }
-
-        for (Produit p: lstProduit
-                ) {
-            int a = p.getQuantite();
-
-            while(a >0)
-            {
-                if(a%2 == 0)
-                {
-                    total2 += (a/2) * p.getPrixApresTaxe();
-                    a= 0;
-                }
-                else
-                {
-                    total2 += p.getPrixApresTaxe();
-                    a--;
-                }
-            }
-        }
-
-        if(total1 < total2)
-        {
-            return total1;
-        }
-        return  total2;
-    }
     /**
      * Receive the activity result from the scanner
      * @param requestCode

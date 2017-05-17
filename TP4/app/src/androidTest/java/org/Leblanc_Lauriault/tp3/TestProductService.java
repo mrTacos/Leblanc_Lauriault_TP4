@@ -9,6 +9,7 @@ import org.Leblanc_Lauriault.tp3.DAL.Achat;
 import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
 import org.Leblanc_Lauriault.tp3.DAL.GenericRepository;
 import org.Leblanc_Lauriault.tp3.DAL.ProduitRepository;
+import org.Leblanc_Lauriault.tp3.DAL.TaxeType;
 import org.Leblanc_Lauriault.tp3.Exception.ProductNotFoundException;
 import org.Leblanc_Lauriault.tp3.GUI.MainPage;
 import org.junit.After;
@@ -248,22 +249,53 @@ public class TestProductService
     }
 
     @Test
-    public void testRabais()
+    public void testRabaisMoinsDeCent()
     {
         List<Produit> lst = new ArrayList<Produit>();
         Produit p = null;
         p = new Produit();
         p.setNom("Produit Test 1");
         p.setPrixAvantTaxe(10);
-        p.setQuantite(7);
+        p.setQuantite(4);
         p.setUpc("987654321098");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         lst.add(p);
         p = new Produit();
         p.setNom("Produit Test 2");
         p.setPrixAvantTaxe(10);
-        p.setQuantite(6);
+        p.setQuantite(5);
         p.setUpc("892685001003");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
         lst.add(p);
-        MainPage.appliquerLesRabais(lst);
+        Achat achat = new Achat();
+        achat.setProduits(lst);
+        double a = achat.getTotal();
+        double b = 52.5;
+        Assert.assertEquals(b,a);
+    }
+    @Test
+    public void testRabaisCentetPlus()
+    {
+        List<Produit> lst = new ArrayList<Produit>();
+        Produit p = null;
+        p = new Produit();
+        p.setNom("Produit Test 1");
+        p.setPrixAvantTaxe(10);
+        p.setQuantite(20);
+        p.setUpc("987654321098");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
+        lst.add(p);
+        p = new Produit();
+        p.setNom("Produit Test 2");
+        p.setPrixAvantTaxe(10);
+        p.setQuantite(20);
+        p.setUpc("892685001003");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
+        lst.add(p);
+        Achat achat = new Achat();
+        achat.setProduits(lst);
+        double a = achat.getTotal();
+        double b = p.getPrixAvantTaxe() *20;
+        Assert.assertEquals(b,a);
     }
 }
