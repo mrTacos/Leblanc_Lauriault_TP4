@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="10sp"
+    android:paddingRight="10sp"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:text="Le montant a payer est de :"
+        android:layout_weight=".3"
+        android:textSize="22dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight=".1" />
+    <ListView
+        android:id="@+id/payListView"
+        android:layout_weight="8"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+    </ListView>
+    <Button
+        android:id="@+id/payButton"
+        android:text="Payer"
+        android:layout_weight="1"
+        android:layout_width="150dp"
+        android:layout_height="0dp" />
+</LinearLayout>

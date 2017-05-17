@@ -31,6 +31,7 @@ import org.Leblanc_Lauriault.tp3.Event.PlusEvent;
 import org.Leblanc_Lauriault.tp3.Exception.ProductNotFoundException;
 import org.Leblanc_Lauriault.tp3.R;
 import org.Leblanc_Lauriault.tp3.Helper.ToastHelper;
+import org.Leblanc_Lauriault.tp3.change.TiroirCaisseLL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,8 @@ public class MainPage extends AppCompatActivity {
     private AchatProduitService apService;
     private CustomAdapter customAdapter;
     private DiscountAdapter discountAdapter;
+    private PayAdapter payAdapter;
+    private TiroirCaisseLL tcll;
     private CRUD<Achat> achatRepo;
     public Bus bus = new Bus(ThreadEnforcer.ANY);
 
@@ -50,6 +53,7 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.apService = new AchatProduitService(this,this.currentProductList);
         this.achatRepo = new AchatRepository(this);
+        this.tcll = new TiroirCaisseLL();
         setContentView(R.layout.activity_main_page);
 
         //Register the custom Adapter
@@ -58,6 +62,7 @@ public class MainPage extends AppCompatActivity {
         lv.setAdapter(customAdapter);
 
         discountAdapter = new DiscountAdapter(this,apService.getAllProducts());
+        payAdapter = new PayAdapter(this,this.tcll,null);
         //discountAdapter = new DiscountAdapter(this,currentProductList);
 
         //Change the app name
@@ -71,6 +76,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+                showPayInterface();
                 apService.payerLesProduit();
             }
         });
@@ -288,6 +294,18 @@ public class MainPage extends AppCompatActivity {
         }
     }
 
+    private void showPayInterface()
+    {
+        View view = getLayoutInflater().inflate(R.layout.dialog_pay, null);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
+        builder.setView(view);
+        final ListView lv2 = (ListView) view.findViewById(R.id.payListView);
+        payAdapter = new PayAdapter(this,this.tcll,)
+        payAdapter.notifyDataSetChanged();
+        lv2.setAdapter(payAdapter);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     private void calculateTotalOrderPrice()
     {
         TextView t = (TextView)findViewById(R.id.totalPrice);
