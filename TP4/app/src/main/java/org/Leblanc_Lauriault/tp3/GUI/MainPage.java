@@ -21,14 +21,14 @@ import com.squareup.otto.Subscribe;
 import com.squareup.otto.ThreadEnforcer;
 
 import org.Leblanc_Lauriault.tp3.DAL.Achat;
+import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
 import org.Leblanc_Lauriault.tp3.DAL.AchatRepository;
-import org.Leblanc_Lauriault.tp3.DAL.AchatService;
 import org.Leblanc_Lauriault.tp3.DAL.CRUD;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
-import org.Leblanc_Lauriault.tp3.DAL.ProduitService;
 import org.Leblanc_Lauriault.tp3.Event.ListUpdatedEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
 import org.Leblanc_Lauriault.tp3.Event.PlusEvent;
+import org.Leblanc_Lauriault.tp3.Exception.ProductNotFoundException;
 import org.Leblanc_Lauriault.tp3.R;
 import org.Leblanc_Lauriault.tp3.Helper.ToastHelper;
 
@@ -38,11 +38,9 @@ import java.util.List;
 public class MainPage extends AppCompatActivity {
 
     private List<Produit> currentProductList = new ArrayList<>();
-    private ProduitService produitService;
-    private AchatService achatService;
+    private AchatProduitService apService;
     private CustomAdapter customAdapter;
     private DiscountAdapter discountAdapter;
-    //private ProduitRepository produitRepo;
     private CRUD<Achat> achatRepo;
     public Bus bus = new Bus(ThreadEnforcer.ANY);
 
@@ -50,7 +48,7 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        //this.produitRepo = new ProduitRepository(this);
+        this.apService = new AchatProduitService(this,this.currentProductList);
         this.achatRepo = new AchatRepository(this);
         setContentView(R.layout.activity_main_page);
 
@@ -58,8 +56,6 @@ public class MainPage extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.listView);
         customAdapter = new CustomAdapter(this,currentProductList);
         lv.setAdapter(customAdapter);
-        this.produitService = new ProduitService(this,this.currentProductList);
-        this.achatService = new AchatService(this, this.currentProductList);
 
         //Change the app name
         this.setTitle("CashDroid");
@@ -72,7 +68,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                achatService.payForProducts();
+                apService.payerLesProduit();
             }
         });
 
@@ -90,16 +86,14 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onPause() {
         customAdapter.bus.unregister(this);
-        this.produitService.bus.unregister(this);
-        this.achatService.bus.unregister(this);
+        this.apService.bus.unregister(this);
         super.onPause();
     }
     @Override
     protected void onResume()
     {
         customAdapter.bus.register(this);
-        this.produitService.bus.register(this);
-        this.achatService.bus.register(this);
+        this.apService.bus.register(this);
         super.onResume();
     }
     //endregion
@@ -135,13 +129,22 @@ public class MainPage extends AppCompatActivity {
                 return;
 
             //Gets the product from the barcode
-            Produit findProduct = this.produitService.getProductFromUPC(barCode);
+            Produit findProduct = null;
+
+            try
+            {
+                findProduct = this.apService.getProductFromUPC(barCode);
+            }
+            catch (ProductNotFoundException e)
+            {
+                findProduct = null;
+            }
+
             if (findProduct != null )
             {
-                //this.produitService.addProduct(findProduct);
                 findProduct.setQuantite(1);
                 int index = this.currentProductList.indexOf(findProduct);
-                int repoQuantity = this.produitService.getProductCountById(findProduct.getId());
+                int repoQuantity = this.apService.getProductCountById(findProduct.getId());
                 int currentQuantity = findProduct.getQuantite();
 
                 //if the items exist in the list
@@ -179,7 +182,7 @@ public class MainPage extends AppCompatActivity {
     {
         int indexToModify = this.currentProductList.indexOf(s.product);
         int passedQuantity = this.currentProductList.get(indexToModify).getQuantite();
-        int repoQuantity = this.produitService.getProductCountById(s.product.getId());
+        int repoQuantity = this.apService.getProductCountById(s.product.getId());
         if (this.currentProductList.get(indexToModify).getQuantite() < repoQuantity)
         {
             this.currentProductList.get(indexToModify).setQuantite(++passedQuantity);
@@ -226,31 +229,31 @@ public class MainPage extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_createInventory)
         {
-            this.produitService.seedDatabase();
+            this.apService.seedDatabase();
             Toast.makeText(this, "Inventaire créé !", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_emptyInventory)
         {
-            this.produitService.emptyInventory();
+            this.apService.emptyInventory();
             Toast.makeText(this, "Inventaire vidé (produit mit à zéro)", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_createList)
         {
-            this.produitService.createRandomBuyingList(/*this.currentProductList,this.customAdapter*/);
+            this.apService.createRandomBuyingList(/*this.currentProductList,this.customAdapter*/);
             Toast.makeText(this, "Liste de produit créée !", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_deleteDatabase)
         {
-            this.produitService.removeInventory();
+            this.apService.removeInventory();
             Toast.makeText(this, "Produits de l'inventaire supprimés !", Toast.LENGTH_SHORT).show();
             return true;
         }
         if(id == R.id.action_modifyDiscount)
         {
-            /*View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
+            View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
             ListView lv = (ListView) findViewById(R.id.discountListView);
             discountAdapter = new DiscountAdapter(this,currentProductList);
             lv.setAdapter(discountAdapter);
@@ -266,7 +269,7 @@ public class MainPage extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-            */
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -311,7 +314,6 @@ public class MainPage extends AppCompatActivity {
         final EditText itemUPC = (EditText)view.findViewById(R.id.itemUPC);
         itemUPC.setText(barCode);
         final AlertDialog dialog = builder.create();
-        //dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         save.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -340,7 +342,7 @@ public class MainPage extends AppCompatActivity {
                     p.setPrixAvantTaxe(Double.parseDouble(itemPrice.getText().toString()));
                     p.setNom(itemName.getText().toString());
                     p.setQuantite(10);
-                    produitService.addProduct(p);
+                    apService.addProduct(p);
                     dialog.dismiss();
                 }
             }

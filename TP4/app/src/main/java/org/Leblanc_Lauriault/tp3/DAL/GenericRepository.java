@@ -12,10 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 1277236 on 2017-05-08.
- */
-
 public class GenericRepository<T extends IEntity> implements CRUD<T>
 {
     Gson gson = new Gson();

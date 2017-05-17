@@ -56,7 +56,7 @@ public class ProduitRepository implements CRUD<Produit>
         }
     }
 
-    public Produit getRandomProduct() throws EmptyInventoryException
+    /*public Produit getRandomProduct() throws EmptyInventoryException
     {
         synchronized (classe)
         {
@@ -67,7 +67,7 @@ public class ProduitRepository implements CRUD<Produit>
 
             return (products.get(r.nextInt(products.size())));
         }
-    }
+    }*/
 
     public Produit getByUPC(String pUPC) throws ProductNotFoundException
     {

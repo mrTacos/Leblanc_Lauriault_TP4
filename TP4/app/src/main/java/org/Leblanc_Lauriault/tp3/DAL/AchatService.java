@@ -12,7 +12,7 @@ import org.Leblanc_Lauriault.tp3.Event.ListUpdatedEvent;
 import java.util.Date;
 import java.util.List;
 
-public class AchatService
+/*public class AchatService
 {
     private ProduitRepository produitRepository;
     private AchatRepository achatRepository;
@@ -75,9 +75,4 @@ public class AchatService
         this.achatRepository.deleteAll();
     }
 
-
-
-
-
-
-}
+}*/
