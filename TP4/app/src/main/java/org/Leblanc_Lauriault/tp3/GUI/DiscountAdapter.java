@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
+import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
 import org.Leblanc_Lauriault.tp3.Event.CheckEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
@@ -28,10 +29,12 @@ import java.util.List;
 public class DiscountAdapter extends ArrayAdapter<Produit> {
 
     public Bus bus = new Bus(ThreadEnforcer.ANY);
+    private AchatProduitService apService;
 
     public DiscountAdapter(Context pContext, List<Produit> products)
     {
         super(pContext, R.layout.discount_item,products);
+        this.apService = new AchatProduitService(pContext,products);
         bus.register(this);
     }
 
@@ -53,18 +56,11 @@ public class DiscountAdapter extends ArrayAdapter<Produit> {
             {
                 CheckEvent e = new CheckEvent();
                 e.produit = (Produit)checkBox.getTag();
+                e.produit.setDeuxPourUn(!e.produit.isDeuxPourUn());
+                apService.modifierProduit(e.produit);
                 bus.post(e);
             }
         });
-        /*checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                CheckEvent e = new CheckEvent();
-                e.produit = (Produit)checkBox.getTag();
-                bus.post(e);
-            }
-        });*/
-
         return v;
     }
 }

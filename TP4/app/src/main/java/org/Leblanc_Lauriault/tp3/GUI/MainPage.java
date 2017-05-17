@@ -24,7 +24,6 @@ import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
 import org.Leblanc_Lauriault.tp3.DAL.AchatRepository;
 import org.Leblanc_Lauriault.tp3.DAL.CRUD;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
-import org.Leblanc_Lauriault.tp3.DAL.ProduitService;
 import org.Leblanc_Lauriault.tp3.Event.CheckEvent;
 import org.Leblanc_Lauriault.tp3.Event.ListUpdatedEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
@@ -58,6 +57,7 @@ public class MainPage extends AppCompatActivity {
         customAdapter = new CustomAdapter(this,currentProductList);
         lv.setAdapter(customAdapter);
 
+        discountAdapter = new DiscountAdapter(this,currentProductList);
 
         //Change the app name
         this.setTitle("CashDroid");
@@ -86,7 +86,8 @@ public class MainPage extends AppCompatActivity {
 
     //region Register / Unregister bus
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         customAdapter.bus.unregister(this);
         this.apService.bus.unregister(this);
         super.onPause();
@@ -220,11 +221,6 @@ public class MainPage extends AppCompatActivity {
         this.calculateTotalOrderPrice();
         this.customAdapter.notifyDataSetChanged();
     }
-    /*@Subscribe
-    public void changeCheck(Produit p)
-    {
-        p.setDeuxPourUn(!p.isDeuxPourUn());
-    }*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -256,13 +252,10 @@ public class MainPage extends AppCompatActivity {
         if(id == R.id.action_modifyDiscount)
         {
             View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
-            ListView lv = (ListView) findViewById(R.id.discountListView);
-            discountAdapter = new DiscountAdapter(this,currentProductList);
-            lv.setAdapter(discountAdapter);
             final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
             builder.setView(view);
             ListView lv2 = (ListView) view.findViewById(R.id.discountListView);
-            discountAdapter = new DiscountAdapter(this, produitService.getAllProducts());
+            discountAdapter = new DiscountAdapter(this, apService.getAllProducts());
             discountAdapter.notifyDataSetChanged();
             lv2.setAdapter(discountAdapter);
             Button save = (Button)view.findViewById(R.id.saveButtonDiscount);
@@ -280,18 +273,6 @@ public class MainPage extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Subscribe
-    public void CheckUpdate(CheckEvent s)
-    {
-        for (Produit p:produitService.getAllProducts())
-        {
-            if(s.produit.equals(p))
-            {
-                p.setDeuxPourUn(s.produit.isDeuxPourUn());
-            }
-        }
     }
 
     private void calculateTotalOrderPrice()
@@ -312,9 +293,6 @@ public class MainPage extends AppCompatActivity {
         String mT = String.valueOf(count);
         t.setText(String.format("%.2f$",count));
     }
-
-
- 
 
 
     /**

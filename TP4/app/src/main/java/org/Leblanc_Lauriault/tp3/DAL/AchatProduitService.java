@@ -85,6 +85,10 @@ public class AchatProduitService
             Log.i("ACHAT","Montant total: " + a.getTotal().toString() + "\nDate: " + a.getDateAchat().toString() + "\nLes produits:\n" + a.getCompleteDescription());
         }
     }
+    public void modifierProduit(Produit produit)
+    {
+        this.pRepo.save(produit);
+    }
     public void viderTousLesAchats()
     {
         this.aRepo.deleteAll();
