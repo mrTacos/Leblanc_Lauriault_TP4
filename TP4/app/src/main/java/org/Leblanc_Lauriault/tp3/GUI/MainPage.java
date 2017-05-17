@@ -24,6 +24,7 @@ import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
 import org.Leblanc_Lauriault.tp3.DAL.AchatRepository;
 import org.Leblanc_Lauriault.tp3.DAL.CRUD;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
+import org.Leblanc_Lauriault.tp3.DAL.TaxeType;
 import org.Leblanc_Lauriault.tp3.Event.CheckEvent;
 import org.Leblanc_Lauriault.tp3.Event.ListUpdatedEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
@@ -33,7 +34,9 @@ import org.Leblanc_Lauriault.tp3.R;
 import org.Leblanc_Lauriault.tp3.Helper.ToastHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainPage extends AppCompatActivity {
 
@@ -58,7 +61,7 @@ public class MainPage extends AppCompatActivity {
         lv.setAdapter(customAdapter);
 
         discountAdapter = new DiscountAdapter(this,apService.getAllProducts());
-        //discountAdapter = new DiscountAdapter(this,currentProductList);
+
 
         //Change the app name
         this.setTitle("CashDroid");
@@ -115,6 +118,55 @@ public class MainPage extends AppCompatActivity {
         return true;
     }
 
+    public static  double appliquerLesRabais(List<Produit> lstProduit)
+    {
+        double total1 = 0;
+        double total2 = 0;
+
+        for (Produit p: lstProduit
+             ) {
+            int a = p.getQuantite();
+
+            while(a > 0)
+            {
+                if(a%2 == 0)
+                {
+                    total1 += (a/2) * p.getPrixAvantTaxe();
+                    break;
+                }
+                else
+                {
+                    total1 += p.getPrixAvantTaxe();
+                    a--;
+                }
+            }
+        }
+
+        for (Produit p: lstProduit
+                ) {
+            int a = p.getQuantite();
+
+            while(a >0)
+            {
+                if(a%2 == 0)
+                {
+                    total2 += (a/2) * p.getPrixApresTaxe();
+                    a= 0;
+                }
+                else
+                {
+                    total2 += p.getPrixApresTaxe();
+                    a--;
+                }
+            }
+        }
+
+        if(total1 < total2)
+        {
+            return total1;
+        }
+        return  total2;
+    }
     /**
      * Receive the activity result from the scanner
      * @param requestCode
