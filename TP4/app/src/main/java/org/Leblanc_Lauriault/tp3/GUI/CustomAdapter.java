@@ -12,6 +12,7 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
+import org.Leblanc_Lauriault.tp3.Event.CheckEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
 import org.Leblanc_Lauriault.tp3.Event.PlusEvent;
 import org.Leblanc_Lauriault.tp3.R;

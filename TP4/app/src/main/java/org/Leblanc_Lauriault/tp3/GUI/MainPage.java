@@ -57,7 +57,11 @@ public class MainPage extends AppCompatActivity {
         customAdapter = new CustomAdapter(this,currentProductList);
         lv.setAdapter(customAdapter);
 
+<<<<<<< HEAD
         discountAdapter = new DiscountAdapter(this,apService.getAllProducts());
+=======
+        discountAdapter = new DiscountAdapter(this,currentProductList);
+>>>>>>> 5d10168a340c8d2b215298512ca4a7726214a33f
 
         //Change the app name
         this.setTitle("CashDroid");
@@ -86,8 +90,13 @@ public class MainPage extends AppCompatActivity {
 
     //region Register / Unregister bus
     @Override
+<<<<<<< HEAD
     protected void onPause() {
         discountAdapter.bus.register(this);
+=======
+    protected void onPause()
+    {
+>>>>>>> 5d10168a340c8d2b215298512ca4a7726214a33f
         customAdapter.bus.unregister(this);
         this.apService.bus.unregister(this);
         super.onPause();
@@ -255,7 +264,13 @@ public class MainPage extends AppCompatActivity {
             View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
             final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
             builder.setView(view);
+<<<<<<< HEAD
             final ListView lv2 = (ListView) view.findViewById(R.id.discountListView);
+=======
+            ListView lv2 = (ListView) view.findViewById(R.id.discountListView);
+            discountAdapter = new DiscountAdapter(this, apService.getAllProducts());
+            discountAdapter.notifyDataSetChanged();
+>>>>>>> 5d10168a340c8d2b215298512ca4a7726214a33f
             lv2.setAdapter(discountAdapter);
             Button save = (Button)view.findViewById(R.id.saveButtonDiscount);
             final AlertDialog dialog = builder.create();
@@ -274,6 +289,7 @@ public class MainPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+<<<<<<< HEAD
     @Subscribe
     public void CheckUpdate(CheckEvent s)
     {
@@ -286,6 +302,8 @@ public class MainPage extends AppCompatActivity {
         }
     }
 
+=======
+>>>>>>> 5d10168a340c8d2b215298512ca4a7726214a33f
     private void calculateTotalOrderPrice()
     {
         TextView t = (TextView)findViewById(R.id.totalPrice);
@@ -304,9 +322,6 @@ public class MainPage extends AppCompatActivity {
         String mT = String.valueOf(count);
         t.setText(String.format("%.2f$",count));
     }
-
-
-
 
 
     /**
