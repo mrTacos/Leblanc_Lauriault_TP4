@@ -1,5 +1,8 @@
 package org.Leblanc_Lauriault.tp3.Event;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
+
+import java.util.List;
+
 /**
  * Created by 1066856 on 2017-05-08.
  */
@@ -7,6 +10,5 @@ import org.Leblanc_Lauriault.tp3.DAL.Produit;
 public class CheckEvent {
 
     public Produit produit;
-
 
 }
