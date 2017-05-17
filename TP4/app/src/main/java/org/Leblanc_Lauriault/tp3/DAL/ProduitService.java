@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class ProduitService
+/*public class ProduitService
 {
     private ProduitRepository produitRepository;
     private AchatRepository achatRepository;
@@ -23,7 +23,7 @@ public class ProduitService
     private Context context;
     public Bus bus = new Bus(ThreadEnforcer.ANY);
 
-    public ProduitService(Context pContext/*, CustomAdapter pCustomAdapter*/, List<Produit> pProducts)
+    public ProduitService(Context pContext*//*, CustomAdapter pCustomAdapter*//*, List<Produit> pProducts)
     {
         this.produitRepository = new ProduitRepository(pContext);
         this.achatRepository = new AchatRepository(pContext);
@@ -33,9 +33,9 @@ public class ProduitService
     }
 
 
-    /**
+    *//**
      * Sets the quantity of every product in the inventory to 0
-     */
+     *//*
     public void emptyInventory()
     {
         this.clearList();
@@ -48,9 +48,9 @@ public class ProduitService
         bus.post(e);
     }
 
-    /**
+    *//**
      * Seed the database with data for testing
-     */
+     *//*
     public void seedDatabase()
     {
         this.clearList();
@@ -77,7 +77,7 @@ public class ProduitService
         return this.produitRepository.getAll();
     }
 
-    public Produit getRandomProduct()
+   *//* public Produit getRandomProduct()
     {
         try
         {
@@ -87,7 +87,7 @@ public class ProduitService
         {
             return null;
         }
-    }
+    }*//*
 
     public Produit getProductFromUPC(String pUPC)
     {
@@ -101,9 +101,9 @@ public class ProduitService
         }
     }
 
-    /**
+    *//**
      * Creates a random buying list with product in it
-     */
+     *//*
     public void createRandomBuyingList()
     {
         this.seedDatabase();
@@ -148,7 +148,7 @@ public class ProduitService
     }
 
 
-    /*@Subscribe
+    *//*@Subscribe
     public void MinusEventAction(MinusEvent s)
     {
         int indexToModify = this.products.indexOf(s.product);
@@ -163,6 +163,6 @@ public class ProduitService
         }
         ListUpdatedEvent e = new ListUpdatedEvent();
         bus.post(e);
-    }*/
+    }*//*
 
-}
+}*/
