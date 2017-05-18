@@ -19,4 +19,5 @@
     <string name="toastEmpty">Inventaire vidé (produit mit à zéro)</string>
     <string name="toastCreateList">Liste de produit créée !</string>
     <string name="toastDeleteInv">Produits de l\'inventaire supprimés !</string>
+    <string name="noMoreOfThisProduct">Il n\'y a plus de ce type en inventaire</string>
 </resources>

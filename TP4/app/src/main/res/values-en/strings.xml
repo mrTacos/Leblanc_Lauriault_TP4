@@ -19,4 +19,5 @@
     <string name="toastEmpty">Inventory cleaned (product count at 0)</string>
     <string name="toastCreateList">Product list created !</string>
     <string name="toastDeleteInv">Products in the inventory deleted !</string>
+    <string name="noMoreOfThisProduct">There is no more of this product in the inventory</string>
 </resources>
