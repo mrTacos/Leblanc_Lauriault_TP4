@@ -336,4 +336,34 @@ public class TestProductService
         double b = 104.6d;
         Assert.assertEquals(b,a.valeurTotale());
     }
+    /*@Test
+    public void modifierRabais() throws Exception {
+        Produit p = null;
+        p = new Produit();
+        p.setNom("Produit Test 1");
+        p.setPrixAvantTaxe(15.5);
+        p.setQuantite(10);
+        p.setUpc("987654321098");
+        p.setTypeTaxe(TaxeType.taxeAutre);
+        p.setDeuxPourUn(true);
+        paService.addProduct(p);
+        p = new Produit();
+        p.setNom("Produit Test 1");
+        p.setPrixAvantTaxe(15.5);
+        p.setQuantite(10);
+        p.setUpc("987654321098");
+        p.setTypeTaxe(TaxeType.taxeAutre);
+        p.setDeuxPourUn(false);
+        paService.addProduct(p);
+        p = paService.getProductCountById(1L);
+        paService.modifierProduit(p.);
+
+
+        Achat achat = new Achat();
+        achat.setProduits(lst);
+        ServiceArgentLL sv = new ServiceArgentLL();
+        Change a = sv.calculerChange(achat.getTotal());
+        double b = 104.6d;
+        Assert.assertEquals(b,a.valeurTotale());
+    }*/
 }
