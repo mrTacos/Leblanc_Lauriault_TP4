@@ -255,25 +255,25 @@ public class MainPage extends AppCompatActivity {
         if (id == R.id.action_createInventory)
         {
             this.apService.seedDatabase();
-            Toast.makeText(this, "Inventaire créé !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.toastCreateInv , Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_emptyInventory)
         {
             this.apService.emptyInventory();
-            Toast.makeText(this, "Inventaire vidé (produit mit à zéro)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toastEmpty, Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_createList)
         {
             this.apService.createRandomBuyingList(/*this.currentProductList,this.customAdapter*/);
-            Toast.makeText(this, "Liste de produit créée !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toastCreateList, Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_deleteDatabase)
         {
             this.apService.removeInventory();
-            Toast.makeText(this, "Produits de l'inventaire supprimés !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toastDeleteInv, Toast.LENGTH_SHORT).show();
             return true;
         }
         if(id == R.id.action_modifyDiscount)

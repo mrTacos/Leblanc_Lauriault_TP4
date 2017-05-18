@@ -5,31 +5,31 @@
 
     <item
         android:id="@+id/action_createInventory"
-        android:title="Créer inventaire"
+        android:title="@string/createInventory"
         android:orderInCategory="100"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_createList"
-        android:title="Créer une liste"
+        android:title="@string/createListe"
         android:orderInCategory="101"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_emptyInventory"
-        android:title="Vider inventaire"
+        android:title="@string/emptyInventory"
         android:orderInCategory="102"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_deleteDatabase"
-        android:title="Supprimer l'inventaire"
+        android:title="@string/deleteInventory"
         android:orderInCategory="103"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_modifyDiscount"
-        android:title="Appliquer des rabais"
+        android:title="@string/applyDiscount"
         android:orderInCategory="104"
         app:showAsAction="never" />
 </menu>

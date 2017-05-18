@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/totalAmoutToPay"
-        android:text="Le montant a payer est de :"
+        android:text="@string/payAmount"
         android:layout_weight=".3"
         android:textSize="22dp"
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
     </ListView>
     <Button
         android:id="@+id/payButton"
-        android:text="Payer"
+        android:text="@string/pay"
         android:layout_weight="1"
         android:layout_width="150dp"
         android:layout_height="0dp" />
