@@ -337,6 +337,9 @@ public class MainPage extends AppCompatActivity {
             e.printStackTrace();
         }
         totalTV.setText(totalTV.getText() + " " + String.valueOf(number));
+=======
+       //payAdapter = new PayAdapter(this,this.tcll,)
+>>>>>>> 6777116d2d719c6d62f63fafd5a54a8902bb4687
         payAdapter.notifyDataSetChanged();
         lv2.setAdapter(payAdapter);
         final AlertDialog dialog = builder.create();
