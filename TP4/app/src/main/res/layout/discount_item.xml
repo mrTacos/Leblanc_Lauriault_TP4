@@ -10,7 +10,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="2"
         android:gravity="center|left"
-        android:text="Le nom de l'item"
+        android:text="@string/itemName"
         android:textSize="20sp"
         android:paddingLeft="30pt"
         android:textAppearance="?android:attr/textAppearanceSmall" />

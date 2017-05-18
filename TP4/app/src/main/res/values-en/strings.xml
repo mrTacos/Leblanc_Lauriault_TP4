@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lauriault_LeBlanc_TP4</string>
+    <string name="save">Save</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="barCode">Barcode</string>
+    <string name="scan">SCAN</string>
+    <string name="pay">PAY</string>
+    <string name="payAmount">The amount to be paid is :</string>
+    <string name="itemName">The item name is</string>
+    <string name="nomArgent">Money type: </string>
+    <string name="createInventory">Create inventory</string>
+    <string name="createListe">Create a list</string>
+    <string name="emptyInventory">Clean inventory</string>
+    <string name="deleteInventory">Delete inventory</string>
+    <string name="applyDiscount">Apply discount</string>
+    <string name="toastCreateInv">Inventory created !</string>
+    <string name="toastEmpty">Inventory cleaned (product count at 0)</string>
+    <string name="toastCreateList">Product list created !</string>
+    <string name="toastDeleteInv">Products in the inventory deleted !</string>
+    <string name="noMoreOfThisProduct">There is no more of this product in the inventory</string>
+</resources>

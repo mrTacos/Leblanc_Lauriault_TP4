@@ -82,7 +82,18 @@ public class AchatProduitService
     {
         for (Achat a:this.aRepo.getAll())
         {
-            Log.i("ACHAT","Montant total: " + a.getTotal().toString() + "\nDate: " + a.getDateAchat().toString() + "\nLes produits:\n" + a.getCompleteDescription());
+            int total = 0;
+            for (Produit p: a.getProduits()
+                 ) {
+                total += p.getPrixAvantTaxe() * p.getQuantite();
+            }
+            int total2 = 0;
+            for (Produit p: a.getProduits()
+                    ) {
+                total2 += p.getPrixApresTaxe() * p.getQuantite();
+            }
+            Log.i("ACHAT","Montant avant taxe: " +total + "\nTaxes: " + (a.getTotal() - total) + "\nMontant total: " + a.getTotal().toString() + "\nMontant dû aux rabais: " + (a.getTotal() - total2) +  "\nDate: " + a.getDateAchat().toString() + "\nLes produits:\n" +
+                    a.getCompleteDescription());
         }
     }
     public void modifierProduit(Produit produit)

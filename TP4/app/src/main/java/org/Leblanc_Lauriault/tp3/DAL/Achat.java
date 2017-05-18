@@ -21,39 +21,51 @@ public class Achat implements IEntity {
 
         for (Produit p: this.produits
                 ) {
-            int a = p.getQuantite();
-
-            while(a > 0)
+            if(p.isDeuxPourUn() == true)
             {
-                if(a%2 == 0)
+                int a = p.getQuantite();
+                while(a > 0 )
                 {
-                    total1 += (a/2) * p.getPrixAvantTaxe();
-                    break;
+                    if(a%2 == 0)
+                    {
+                        total1 += (a/2) * p.getPrixAvantTaxe();
+                        break;
+                    }
+                    else
+                    {
+                        total1 += p.getPrixAvantTaxe();
+                        a--;
+                    }
                 }
-                else
-                {
-                    total1 += p.getPrixAvantTaxe();
-                    a--;
-                }
+            }
+            else
+            {
+                total1 += p.getPrixAvantTaxe() * p.getQuantite();
             }
         }
 
         for (Produit p: this.produits
                 ) {
-            int a = p.getQuantite();
-
-            while(a >0)
+            if(p.isDeuxPourUn() == true)
             {
-                if(a%2 == 0)
+                int a = p.getQuantite();
+                while(a > 0 )
                 {
-                    total2 += (a/2) * p.getPrixApresTaxe();
-                    a= 0;
+                    if(a%2 == 0)
+                    {
+                        total2 += (a/2) * p.getPrixApresTaxe();
+                        break;
+                    }
+                    else
+                    {
+                        total2 += p.getPrixApresTaxe();
+                        a--;
+                    }
                 }
-                else
-                {
-                    total2 += p.getPrixApresTaxe();
-                    a--;
-                }
+            }
+            else
+            {
+                total2 += p.getPrixApresTaxe() * p.getQuantite();
             }
         }
 
@@ -94,39 +106,53 @@ public class Achat implements IEntity {
         double total3 = 0;
         double total4 = 0;
 
-        for (Produit p: pProduits) {
-            int a = p.getQuantite();
-
-            while(a > 0)
+        for (Produit p: pProduits
+                ) {
+            if(p.isDeuxPourUn() == true)
             {
-                if(a%2 == 0)
+                int a = p.getQuantite();
+                while(a > 0 )
                 {
-                    total1 += (a/2) * p.getPrixAvantTaxe();
-                    break;
+                    if(a%2 == 0)
+                    {
+                        total1 += (a/2) * p.getPrixAvantTaxe();
+                        break;
+                    }
+                    else
+                    {
+                        total1 += p.getPrixAvantTaxe();
+                        a--;
+                    }
                 }
-                else
-                {
-                    total1 += p.getPrixAvantTaxe();
-                    a--;
-                }
+            }
+            else
+            {
+                total1 += p.getPrixAvantTaxe() * p.getQuantite();
             }
         }
 
-        for (Produit p: pProduits) {
-            int a = p.getQuantite();
-
-            while(a >0)
+        for (Produit p: pProduits
+                ) {
+            if(p.isDeuxPourUn() == true)
             {
-                if(a%2 == 0)
+                int a = p.getQuantite();
+                while(a > 0 )
                 {
-                    total2 += (a/2) * p.getPrixApresTaxe();
-                    a= 0;
+                    if(a%2 == 0)
+                    {
+                        total2 += (a/2) * p.getPrixApresTaxe();
+                        break;
+                    }
+                    else
+                    {
+                        total2 += p.getPrixApresTaxe();
+                        a--;
+                    }
                 }
-                else
-                {
-                    total2 += p.getPrixApresTaxe();
-                    a--;
-                }
+            }
+            else
+            {
+                total2 += p.getPrixApresTaxe() * p.getQuantite();
             }
         }
 
