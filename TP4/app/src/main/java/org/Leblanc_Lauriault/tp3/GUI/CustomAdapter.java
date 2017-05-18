@@ -71,5 +71,4 @@ public class CustomAdapter extends ArrayAdapter<Produit>
         }
         return v;
     }
-
 }

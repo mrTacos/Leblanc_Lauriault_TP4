@@ -49,7 +49,6 @@ public class ServiceArgentLL implements ServiceArgent
     public Change calculerChange(double montant) throws Exception
     {
 
-
         if (montant < 0)
         {
             throw new TransactionMontantInvalidException("Un montant négatif!!!");

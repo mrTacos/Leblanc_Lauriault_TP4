@@ -14,11 +14,15 @@ import com.squareup.otto.ThreadEnforcer;
 
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
+import org.Leblanc_Lauriault.tp3.Event.PlusChangeEvent;
 import org.Leblanc_Lauriault.tp3.Event.PlusEvent;
 import org.Leblanc_Lauriault.tp3.Exception.BadlyFormedUPCException;
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.ChangeNegatifException;
 import org.Leblanc_Lauriault.tp3.R;
 import org.Leblanc_Lauriault.tp3.change.ArgentObjet;
+import org.Leblanc_Lauriault.tp3.change.Change;
 import org.Leblanc_Lauriault.tp3.change.ChangeLL;
+import org.Leblanc_Lauriault.tp3.change.TiroirCaisse;
 import org.Leblanc_Lauriault.tp3.change.TiroirCaisseLL;
 
 import java.util.ArrayList;
@@ -27,13 +31,13 @@ import java.util.List;
 public class PayAdapter extends ArrayAdapter<ArgentObjet>
 {
     public Bus bus = new Bus(ThreadEnforcer.ANY);
-    private TiroirCaisseLL _tcll;
-    private ChangeLL cll;
-    public PayAdapter(Context pContext, TiroirCaisseLL tcLL, ChangeLL cll)
+    private TiroirCaisse _tcll;
+    private Change cll;
+    public PayAdapter(Context pContext, TiroirCaisse tcLL, Change cll)
     {
         super(pContext, R.layout.paylist_item,ArgentObjet.getAllMoney());
         this._tcll = tcLL;
-        this.cll = cll;
+        this.cll = new ChangeLL();
         bus.register(this);
     }
 
@@ -56,22 +60,30 @@ public class PayAdapter extends ArrayAdapter<ArgentObjet>
             quantitySelected.setText("X " +String.valueOf(this.cll.nombreItemsPour(ao)));
 
 
-            plusButton.setOnClickListener(new View.OnClickListener(){
+            plusButton.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
                 public void onClick(View view)
                 {
-                    PlusEvent e = new PlusEvent();
-                    e.product =(Produit)plusButton.getTag();
-                    bus.post(e);
+                    try {
+                        cll.ajouterItem(ao,1);
+                        PlusChangeEvent pce = new PlusChangeEvent();
+                        bus.post(pce);
+                    } catch (ChangeNegatifException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
-            minusButton.setOnClickListener(new View.OnClickListener(){
+            minusButton.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
                 public void onClick(View view)
                 {
-                    MinusEvent e = new MinusEvent();
-                    e.product = (Produit)minusButton.getTag();
-                    bus.post(e);
+                    try {
+                        cll.ajouterItem(ao,-1);
+                    } catch (ChangeNegatifException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

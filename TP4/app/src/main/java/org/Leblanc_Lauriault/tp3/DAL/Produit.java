@@ -18,7 +18,7 @@ public class Produit implements IEntity {
 	private Integer quantite;
 	private double prixAvantTaxe;
 	private TaxeType typeTaxe;
-	private double prixUnitaire;
+	//private double prixUnitaire;
 	private boolean deuxPourUn;
 
 
