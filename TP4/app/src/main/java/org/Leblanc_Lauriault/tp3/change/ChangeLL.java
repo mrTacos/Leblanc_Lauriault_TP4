@@ -37,8 +37,22 @@ public class ChangeLL implements Change
      * @param nombre
      */
     public void ajouterItem(ArgentObjet m, int nombre) throws ChangeNegatifException {
+
         if (nombre < 0)
-            throw new ChangeNegatifException();
+        {
+            if (this.m_changeTotal.containsKey(m) && this.m_changeTotal.get(m) == Math.abs(nombre))
+            {
+                this.m_changeTotal.remove(m);
+                return;
+            }
+            if (this.m_changeTotal.containsKey(m))
+            {
+                this.m_changeTotal.put(m,this.m_changeTotal.get(m)+nombre);
+                return;
+            }
+            return;
+        }
+
 
         if (this.m_changeTotal.containsKey(m))
         {

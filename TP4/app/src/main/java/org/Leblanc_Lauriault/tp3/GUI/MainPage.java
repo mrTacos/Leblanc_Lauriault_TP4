@@ -1,5 +1,6 @@
 package org.Leblanc_Lauriault.tp3.GUI;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,25 +25,20 @@ import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
 import org.Leblanc_Lauriault.tp3.DAL.AchatRepository;
 import org.Leblanc_Lauriault.tp3.DAL.CRUD;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
-import org.Leblanc_Lauriault.tp3.DAL.TaxeType;
 import org.Leblanc_Lauriault.tp3.Event.CheckEvent;
 import org.Leblanc_Lauriault.tp3.Event.ListUpdatedEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusChangeEvent;
 import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
-import org.Leblanc_Lauriault.tp3.Event.PlusChangeEvent;
 import org.Leblanc_Lauriault.tp3.Event.PlusEvent;
+import org.Leblanc_Lauriault.tp3.Event.PlusMinusChangeEvent;
 import org.Leblanc_Lauriault.tp3.Exception.ProductNotFoundException;
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.ArrondiNombreNegatifException;
 import org.Leblanc_Lauriault.tp3.R;
 import org.Leblanc_Lauriault.tp3.Helper.ToastHelper;
 import org.Leblanc_Lauriault.tp3.change.ServiceArgentLL;
-import org.Leblanc_Lauriault.tp3.change.TiroirCaisseLL;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static org.Leblanc_Lauriault.tp3.DAL.Achat.getTotalFromProducts;
 
 public class MainPage extends AppCompatActivity {
 
@@ -53,6 +49,8 @@ public class MainPage extends AppCompatActivity {
     private PayAdapter payAdapter;
     private ServiceArgentLL serviceArgentLL;
     private CRUD<Achat> achatRepo;
+    private View payView;
+    private Dialog payDialog;
     public Bus bus = new Bus(ThreadEnforcer.ANY);
 
     @Override
@@ -61,7 +59,7 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.apService = new AchatProduitService(this,this.currentProductList);
         this.achatRepo = new AchatRepository(this);
-        this.serviceArgentLL = new ServiceArgentLL();
+        this.serviceArgentLL = new ServiceArgentLL(true);
         setContentView(R.layout.activity_main_page);
 
         //Register the custom Adapter
@@ -70,11 +68,11 @@ public class MainPage extends AppCompatActivity {
         lv.setAdapter(customAdapter);
 
         discountAdapter = new DiscountAdapter(this,apService.getAllProducts());
-        payAdapter = new PayAdapter(this,this.serviceArgentLL.getTiroir(),null);
-        //discountAdapter = new DiscountAdapter(this,currentProductList);
+        this.createPayInterface();
+        //payAdapter = new PayAdapter(this,this.serviceArgentLL.getTiroir(),null);
 
         //Change the app name
-        this.setTitle("CashDroid");
+        this.setTitle("TP4");
         this.calculateTotalOrderPrice();
 
         Button pay = (Button)findViewById(R.id.payButton);
@@ -84,7 +82,8 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                showPayInterface();
+                if (currentProductList.size() != 0)
+                    showPayInterface();
             }
         });
 
@@ -231,16 +230,19 @@ public class MainPage extends AppCompatActivity {
         this.calculateTotalOrderPrice();
     }
 
+    /***
+     * Réagit à l'ajout ou le retrait d'un billet ou d'une pièce
+     * @param s L'event
+     */
     @Subscribe
-    public void PlusChangeEventAction(PlusChangeEvent s)
+    public void PlusMinusChangeEvent(PlusMinusChangeEvent s)
     {
+        Double number2 = payAdapter.cll.valeurTotale();
+        final TextView totalSelected = (TextView) payView.findViewById(R.id.totalChangeSelected);
+        totalSelected.setText("Sélectionné: " + String.valueOf(number2));
         payAdapter.notifyDataSetChanged();
     }
-    @Subscribe
-    public void MinusChangeEventAction(MinusChangeEvent s)
-    {
-        payAdapter.notifyDataSetChanged();
-    }
+
 
     @Subscribe
     public void ListUpdatedAction(ListUpdatedEvent s)
@@ -313,42 +315,63 @@ public class MainPage extends AppCompatActivity {
             }
         }
     }
+    private void createPayInterface()
+    {
+        payAdapter = new PayAdapter(this,this.serviceArgentLL.getTiroir(),null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_pay, null);
+        this.payView = view;
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
+        builder.setView(view);
+        final ListView lv2 = (ListView) view.findViewById(R.id.payListView);
+        lv2.setAdapter(payAdapter);
+        payDialog = builder.create();
+    }
 
     private void showPayInterface()
     {
-        Double number = Achat.getTotalFromProducts(currentProductList);
 
-        View view = getLayoutInflater().inflate(R.layout.dialog_pay, null);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
-        final TextView totalTV = (TextView) view.findViewById(R.id.totalAmoutToPay);
-        final Button payButton = (Button) view.findViewById(R.id.payButton);
+        Double number = null;
+        try {
+            number = this.serviceArgentLL.arrondiA5sous(Achat.getTotalFromProducts(currentProductList));
+        } catch (ArrondiNombreNegatifException e) {
+            e.printStackTrace();
+        }
+        Double number2 = payAdapter.cll.valeurTotale();
 
-        final Button plusButton = (Button) view.findViewById(R.id.plusButton);
-        final Button minusButton = (Button) view.findViewById(R.id.minusButton);
+        //View view = getLayoutInflater().inflate(R.layout.dialog_pay, null);
+        //final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
 
-        builder.setView(view);
-        final ListView lv2 = (ListView) view.findViewById(R.id.payListView);
-        try
+        final TextView totalTV = (TextView) payView.findViewById(R.id.totalAmoutToPay);
+        final TextView totalSelected = (TextView) payView.findViewById(R.id.totalChangeSelected);
+        final Button payButton = (Button) payView.findViewById(R.id.payButton);
+        final Button plusButton = (Button) payView.findViewById(R.id.plusButton);
+        final Button minusButton = (Button) payView.findViewById(R.id.minusButton);
+
+        //builder.setView(view);
+        //final ListView lv2 = (ListView) view.findViewById(R.id.payListView);
+
+        /*try
         {
             payAdapter = new PayAdapter(this,this.serviceArgentLL.getTiroir(),null);
         }
         catch (Exception e)
         {
             e.printStackTrace();
-        }
-        totalTV.setText(totalTV.getText() + " " + String.valueOf(number));
-       //payAdapter = new PayAdapter(this,this.tcll,)
-        payAdapter.notifyDataSetChanged();
-        lv2.setAdapter(payAdapter);
-        final AlertDialog dialog = builder.create();
-        dialog.show();
+        }*/
+        totalTV.setText("       À payer: " + String.valueOf(number));
+        totalSelected.setText("Sélectionné: " + String.valueOf(number2));
+        //lv2.setAdapter(payAdapter);
+        //payAdapter.notifyDataSetChanged();
+        //final AlertDialog dialog = builder.create();
+        payDialog.show();
 
+        //Le moment de payer les achats
         payButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
                 apService.payerLesProduit();
-                dialog.dismiss();
+                payDialog.dismiss();
             }
         });
 

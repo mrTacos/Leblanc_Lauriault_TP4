@@ -3,6 +3,7 @@ package org.Leblanc_Lauriault.tp3.DAL;
 import org.Leblanc_Lauriault.tp3.Exception.BadProductException;
 import org.Leblanc_Lauriault.tp3.Exception.ProductNotFoundException;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -85,6 +86,9 @@ public class Achat implements IEntity {
 
     public static Double getTotalFromProducts(List<Produit> pProduits)
     {
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(2);
         double total1 = 0;
         double total2 = 0;
         double total3 = 0;
@@ -137,18 +141,19 @@ public class Achat implements IEntity {
         {
             if(total2 < total4)
             {
-                return  total2;
+                return Double.valueOf(df.format(total2).replace(',','.'));
             }
-            return total4;
+            return Double.valueOf(df.format(total4).replace(',','.'));
         }
         else
         {
             if(total1 < total3)
             {
-                return total1;
+                return Double.valueOf(df.format(total1).replace(',','.'));
             }
         }
-        return total3;
+
+        return Double.valueOf(df.format(total3).replace(',','.'));
     }
 
     public String getCompleteDescription()

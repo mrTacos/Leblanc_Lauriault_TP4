@@ -9,8 +9,21 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
+        android:textColor="#db3232"
         android:id="@+id/totalAmoutToPay"
-        android:text="Le montant a payer est de :"
+        android:text="      À payer : "
+        android:layout_weight=".3"
+        android:textSize="22dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight=".1" />
+    <TextView
+        android:textColor="#01af18"
+        android:id="@+id/totalChangeSelected"
+        android:text="Sélectionné: "
         android:layout_weight=".3"
         android:textSize="22dp"
         android:layout_width="match_parent"
@@ -25,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
     </ListView>
+
     <Button
         android:id="@+id/payButton"
         android:text="Payer"

@@ -125,6 +125,7 @@ public class AchatProduitService
             p.setUpc(productUPC[i]);
             p.setPrixAvantTaxe(productPrice[i]);
             p.setQuantite(10);
+            p.setDeuxPourUn(false);
             p.setTypeTaxe(TaxeType.taxeEssentiel);
             this.pRepo.save(p);
         }

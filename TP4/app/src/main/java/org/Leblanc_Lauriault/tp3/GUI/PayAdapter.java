@@ -12,27 +12,20 @@ import android.widget.TextView;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
-import org.Leblanc_Lauriault.tp3.DAL.Produit;
-import org.Leblanc_Lauriault.tp3.Event.MinusEvent;
-import org.Leblanc_Lauriault.tp3.Event.PlusChangeEvent;
-import org.Leblanc_Lauriault.tp3.Event.PlusEvent;
-import org.Leblanc_Lauriault.tp3.Exception.BadlyFormedUPCException;
+import org.Leblanc_Lauriault.tp3.Event.MinusChangeEvent;
+import org.Leblanc_Lauriault.tp3.Event.PlusMinusChangeEvent;
 import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.ChangeNegatifException;
 import org.Leblanc_Lauriault.tp3.R;
 import org.Leblanc_Lauriault.tp3.change.ArgentObjet;
 import org.Leblanc_Lauriault.tp3.change.Change;
 import org.Leblanc_Lauriault.tp3.change.ChangeLL;
 import org.Leblanc_Lauriault.tp3.change.TiroirCaisse;
-import org.Leblanc_Lauriault.tp3.change.TiroirCaisseLL;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PayAdapter extends ArrayAdapter<ArgentObjet>
 {
     public Bus bus = new Bus(ThreadEnforcer.ANY);
     private TiroirCaisse _tcll;
-    private Change cll;
+    public Change cll;
     public PayAdapter(Context pContext, TiroirCaisse tcLL, Change cll)
     {
         super(pContext, R.layout.paylist_item,ArgentObjet.getAllMoney());
@@ -59,7 +52,6 @@ public class PayAdapter extends ArrayAdapter<ArgentObjet>
             moneyName.setText(ao.nomLisible + ": ");
             quantitySelected.setText("X " +String.valueOf(this.cll.nombreItemsPour(ao)));
 
-
             plusButton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -67,11 +59,12 @@ public class PayAdapter extends ArrayAdapter<ArgentObjet>
                 {
                     try {
                         cll.ajouterItem(ao,1);
-                        PlusChangeEvent pce = new PlusChangeEvent();
-                        bus.post(pce);
                     } catch (ChangeNegatifException e) {
                         e.printStackTrace();
                     }
+                    PlusMinusChangeEvent pce = new PlusMinusChangeEvent();
+                    pce.argentObjet = ao;
+                    bus.post(pce);
                 }
             });
             minusButton.setOnClickListener(new View.OnClickListener()
@@ -84,6 +77,9 @@ public class PayAdapter extends ArrayAdapter<ArgentObjet>
                     } catch (ChangeNegatifException e) {
                         e.printStackTrace();
                     }
+                    PlusMinusChangeEvent pce = new PlusMinusChangeEvent();
+                    pce.argentObjet = ao;
+                    bus.post(pce);
                 }
             });
         }

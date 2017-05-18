@@ -48,14 +48,14 @@ public class TiroirCaisseLL implements TiroirCaisse
             return;
 
         boolean isPiece = (m.nomLisible.contains("pièce"));
-        if ((isPiece && this.m_capaciteTiroir.get(m) < this.maxPiece)||(!isPiece && this.m_capaciteTiroir.get(m) < this.maxBillet))
-        {
+        //if ((isPiece && this.m_capaciteTiroir.get(m) < this.maxPiece)||(!isPiece && this.m_capaciteTiroir.get(m) < this.maxBillet))
+        //{
             this.m_capaciteTiroir.put(m,this.m_capaciteTiroir.get(m) + nombre);
-        }
-        else
-        {
+        //}
+        //else
+        //{
             throw new EmplacementPleinException("Le tiroir caisse comprend déja un nombre maxium de billet ou de pièce.");
-        }
+       // }
     }
 
     /**

@@ -3,10 +3,10 @@ package org.Leblanc_Lauriault.tp3.Event;
 import org.Leblanc_Lauriault.tp3.change.ArgentObjet;
 
 /**
- * Created by 1277236 on 2017-05-17.
+ * Created by Alex on 5/18/2017.
  */
 
-public class MinusChangeEvent
+public class PlusMinusChangeEvent
 {
-    public ArgentObjet money;
+    public ArgentObjet argentObjet;
 }
