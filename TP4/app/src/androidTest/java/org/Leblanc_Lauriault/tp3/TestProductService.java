@@ -12,6 +12,8 @@ import org.Leblanc_Lauriault.tp3.DAL.ProduitRepository;
 import org.Leblanc_Lauriault.tp3.DAL.TaxeType;
 import org.Leblanc_Lauriault.tp3.Exception.ProductNotFoundException;
 import org.Leblanc_Lauriault.tp3.GUI.MainPage;
+import org.Leblanc_Lauriault.tp3.change.Change;
+import org.Leblanc_Lauriault.tp3.change.ServiceArgentLL;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -297,5 +299,41 @@ public class TestProductService
         double a = achat.getTotal();
         double b = p.getPrixAvantTaxe() *20;
         Assert.assertEquals(b,a);
+    }
+    @Test
+    public void testTaxeCinq() throws Exception {
+        List<Produit> lst = new ArrayList<Produit>();
+        Produit p = null;
+        p = new Produit();
+        p.setNom("Produit Test 1");
+        p.setPrixAvantTaxe(15.5);
+        p.setQuantite(10);
+        p.setUpc("987654321098");
+        p.setTypeTaxe(TaxeType.taxeEssentiel);
+        lst.add(p);
+        Achat achat = new Achat();
+        achat.setProduits(lst);
+        ServiceArgentLL sv = new ServiceArgentLL();
+        Change a = sv.calculerChange(achat.getTotal());
+        double b = 81.4d;
+        Assert.assertEquals(b,a.valeurTotale());
+    }
+    @Test
+    public void testTaxeTrenteCinq() throws Exception {
+        List<Produit> lst = new ArrayList<Produit>();
+        Produit p = null;
+        p = new Produit();
+        p.setNom("Produit Test 1");
+        p.setPrixAvantTaxe(15.5);
+        p.setQuantite(10);
+        p.setUpc("987654321098");
+        p.setTypeTaxe(TaxeType.taxeAutre);
+        lst.add(p);
+        Achat achat = new Achat();
+        achat.setProduits(lst);
+        ServiceArgentLL sv = new ServiceArgentLL();
+        Change a = sv.calculerChange(achat.getTotal());
+        double b = 104.6d;
+        Assert.assertEquals(b,a.valeurTotale());
     }
 }
