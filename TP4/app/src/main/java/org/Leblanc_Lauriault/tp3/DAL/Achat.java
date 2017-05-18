@@ -27,19 +27,19 @@ public class Achat implements IEntity {
                 {
                     if(a%2 == 0)
                     {
-                        total2 += (a/2) * p.getPrixAvantTaxe();
+                        total1 += (a/2) * p.getPrixAvantTaxe();
                         break;
                     }
                     else
                     {
-                        total2 += p.getPrixAvantTaxe();
+                        total1 += p.getPrixAvantTaxe();
                         a--;
                     }
                 }
             }
             else
             {
-                total2 += p.getPrixApresTaxe() * p.getQuantite();
+                total1 += p.getPrixAvantTaxe() * p.getQuantite();
             }
         }
 
@@ -111,19 +111,19 @@ public class Achat implements IEntity {
                 {
                     if(a%2 == 0)
                     {
-                        total2 += (a/2) * p.getPrixAvantTaxe();
+                        total1 += (a/2) * p.getPrixAvantTaxe();
                         break;
                     }
                     else
                     {
-                        total2 += p.getPrixAvantTaxe();
+                        total1 += p.getPrixAvantTaxe();
                         a--;
                     }
                 }
             }
             else
             {
-                total2 += p.getPrixApresTaxe() * p.getQuantite();
+                total1 += p.getPrixAvantTaxe() * p.getQuantite();
             }
         }
 
