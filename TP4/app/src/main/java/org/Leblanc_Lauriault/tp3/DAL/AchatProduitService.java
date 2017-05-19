@@ -89,7 +89,23 @@ public class AchatProduitService
             int total = 0;
             for (Produit p: a.getProduits())
             {
-                total += p.getPrixAvantTaxe() * p.getQuantite();
+                if(p.isDeuxPourUn() == true)
+                {
+                    int z = p.getQuantite();
+                    while(z > 0 )
+                    {
+                        if(z%2 == 0)
+                        {
+                            total += (z/2) * p.getPrixAvantTaxe();
+                            break;
+                        }
+                        else
+                        {
+                            total += p.getPrixAvantTaxe();
+                            z--;
+                        }
+                    }
+                }
             }
             int total2 = 0;
             for (Produit p: a.getProduits())
