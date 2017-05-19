@@ -261,6 +261,7 @@ public class TestProductService
         p.setQuantite(4);
         p.setUpc("987654321098");
         p.setTypeTaxe(TaxeType.taxeEssentiel);
+        p.setDeuxPourUn(true);
         lst.add(p);
         p = new Produit();
         p.setNom("Produit Test 2");
@@ -268,6 +269,7 @@ public class TestProductService
         p.setQuantite(5);
         p.setUpc("892685001003");
         p.setTypeTaxe(TaxeType.taxeEssentiel);
+        p.setDeuxPourUn(true);
         lst.add(p);
         Achat achat = new Achat();
         achat.setProduits(lst);
@@ -286,6 +288,7 @@ public class TestProductService
         p.setQuantite(20);
         p.setUpc("987654321098");
         p.setTypeTaxe(TaxeType.taxeEssentiel);
+        p.setDeuxPourUn(true);
         lst.add(p);
         p = new Produit();
         p.setNom("Produit Test 2");
@@ -293,6 +296,7 @@ public class TestProductService
         p.setQuantite(20);
         p.setUpc("892685001003");
         p.setTypeTaxe(TaxeType.taxeEssentiel);
+        p.setDeuxPourUn(true);
         lst.add(p);
         Achat achat = new Achat();
         achat.setProduits(lst);
@@ -310,6 +314,7 @@ public class TestProductService
         p.setQuantite(10);
         p.setUpc("987654321098");
         p.setTypeTaxe(TaxeType.taxeEssentiel);
+        p.setDeuxPourUn(true);
         lst.add(p);
         Achat achat = new Achat();
         achat.setProduits(lst);
@@ -328,12 +333,40 @@ public class TestProductService
         p.setQuantite(10);
         p.setUpc("987654321098");
         p.setTypeTaxe(TaxeType.taxeAutre);
+        p.setDeuxPourUn(true);
         lst.add(p);
         Achat achat = new Achat();
         achat.setProduits(lst);
         ServiceArgentLL sv = new ServiceArgentLL();
         Change a = sv.calculerChange(achat.getTotal());
         double b = 104.6d;
+        Assert.assertEquals(b,a.valeurTotale());
+    }
+    @Test
+    public void testDeuxPourUn() throws Exception {
+        List<Produit> lst = new ArrayList<Produit>();
+        Produit p = null;
+        p = new Produit();
+        p.setNom("Produit Test 1");
+        p.setPrixAvantTaxe(2);
+        p.setQuantite(10);
+        p.setUpc("987654321098");
+        p.setTypeTaxe(TaxeType.taxeAutre);
+        p.setDeuxPourUn(true);
+        lst.add(p);
+        p = new Produit();
+        p.setNom("Produit Test 2");
+        p.setPrixAvantTaxe(1);
+        p.setQuantite(10);
+        p.setUpc("987654321098");
+        p.setTypeTaxe(TaxeType.taxeAutre);
+        p.setDeuxPourUn(false);
+        lst.add(p);
+        Achat achat = new Achat();
+        achat.setProduits(lst);
+        ServiceArgentLL sv = new ServiceArgentLL();
+        Change a = sv.calculerChange(achat.getTotal());
+        double b = 27;
         Assert.assertEquals(b,a.valeurTotale());
     }
 }
