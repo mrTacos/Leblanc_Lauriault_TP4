@@ -23,7 +23,6 @@
     <TextView
         android:textColor="#01af18"
         android:id="@+id/totalChangeSelected"
-        android:text="Sélectionné: "
         android:text="@string/payAmount"
         android:layout_weight=".3"
         android:textSize="22dp"
