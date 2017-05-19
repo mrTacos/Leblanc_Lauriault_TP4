@@ -118,6 +118,16 @@ public class ServiceArgentLL implements ServiceArgent
         return change;
     }
 
+    public void ajouterChangeDuClient(Change pChange) throws Exception {
+        for (ArgentObjet ao:ArgentObjet.values())
+        {
+            if (pChange.nombreItemsPour(ao) >0)
+            {
+                this.tcl.ajouterItem(ao,pChange.nombreItemsPour(ao));
+            }
+        }
+    }
+
     /**
      * Vérifie si dans le reste de la liste, il contient asser d'argent pour éviter une erreur.
      * @return

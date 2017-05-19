@@ -49,7 +49,7 @@ public class PayAdapter extends ArrayAdapter<ArgentObjet>
             plusButton.setTag(ao);
             minusButton.setTag(ao);
 
-            moneyName.setText(ao.nomLisible + ": ");
+            moneyName.setText(String.format("%.2f",ao.valeur()) + " $: ");
             quantitySelected.setText("X " +String.valueOf(this.cll.nombreItemsPour(ao)));
 
             plusButton.setOnClickListener(new View.OnClickListener()

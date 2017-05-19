@@ -156,10 +156,12 @@ public class Achat implements IEntity {
             }
         }
 
-        for (Produit p: pProduits) {
+        for (Produit p: pProduits
+                ) {
             total3 += p.getPrixAvantTaxe() * p.getQuantite();
         }
-        for (Produit p: pProduits) {
+        for (Produit p: pProduits
+                ) {
             total4 += p.getPrixApresTaxe() * p.getQuantite();
         }
 

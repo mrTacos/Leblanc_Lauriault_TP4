@@ -2,6 +2,7 @@ package org.Leblanc_Lauriault.tp3.DAL;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
@@ -25,6 +26,7 @@ public class AchatProduitService
     private GenericRepository<Achat> aRepo;
     private List<Produit> products;
     public Bus bus = new Bus(ThreadEnforcer.ANY);
+    private Context context;
 
 
 
@@ -33,6 +35,7 @@ public class AchatProduitService
         pRepo = new GenericRepository<Produit>(pContext,Produit.class);
         aRepo = new GenericRepository<Achat>(pContext,Achat.class);
         this.products = pProducts;
+        this.context = pContext;
     }
 
     public void setProductList(List<Produit> pList)
@@ -61,6 +64,7 @@ public class AchatProduitService
         a.setDateAchat(new Date());
         a.setProduits(products);
         aRepo.save(a);
+
         //removes the product in the inventory
         for (Produit pItem:products)
         {
@@ -83,13 +87,13 @@ public class AchatProduitService
         for (Achat a:this.aRepo.getAll())
         {
             int total = 0;
-            for (Produit p: a.getProduits()
-                 ) {
+            for (Produit p: a.getProduits())
+            {
                 total += p.getPrixAvantTaxe() * p.getQuantite();
             }
             int total2 = 0;
-            for (Produit p: a.getProduits()
-                    ) {
+            for (Produit p: a.getProduits())
+            {
                 total2 += p.getPrixApresTaxe() * p.getQuantite();
             }
             Log.i("ACHAT","Montant avant taxe: " +total + "\nTaxes: " + (a.getTotal() - total) + "\nMontant total: " + a.getTotal().toString() + "\nMontant dû aux rabais: " + (a.getTotal() - total2) +  "\nDate: " + a.getDateAchat().toString() + "\nLes produits:\n" +
@@ -123,6 +127,7 @@ public class AchatProduitService
      */
     public void seedDatabase()
     {
+
         this.clearList();
         this.pRepo.deleteAll();
         Produit p;
@@ -186,13 +191,21 @@ public class AchatProduitService
      */
     public void createRandomBuyingList()
     {
-        this.seedDatabase();
+        if (this.pRepo.getAll().size() == 0)
+        {
+            Toast.makeText(context, "Impossible de créer une liste sans inventaire. Veuillez créer l'inventaire avant !", Toast.LENGTH_LONG).show();
+            return;
+        }
+        this.clearList();
         List<Produit> allProducts = this.pRepo.getAll();
         Collections.shuffle(allProducts);
+
         for (int i = 0; i < 5; i++)
         {
             Random r = new Random();
             Produit p = allProducts.get(i);
+            p.setQuantite(10);
+            this.pRepo.save(p);
             allProducts.remove(p);
             p.setQuantite(r.nextInt(5)+1);
             products.add(p);
