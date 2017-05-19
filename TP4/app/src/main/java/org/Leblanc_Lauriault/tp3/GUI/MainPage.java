@@ -245,7 +245,13 @@ public class MainPage extends AppCompatActivity {
     {
         Double number2 = payAdapter.cll.valeurTotale();
         final TextView totalSelected = (TextView) payView.findViewById(R.id.totalChangeSelected);
+        final TextView due = (TextView) payView.findViewById(R.id.totalChangeDue);
         totalSelected.setText("Sélectionné: " + String.format("%.2f",number2));
+        try {
+            due.setText("Montant due: " + String.format("%.2f",number2 - this.serviceArgentLL.arrondiA5sous(number2-Achat.getTotalFromProducts(currentProductList))));
+        } catch (ArrondiNombreNegatifException e) {
+            due.setText("Montant due: ");
+        }
         payAdapter.notifyDataSetChanged();
     }
 
@@ -389,6 +395,7 @@ public class MainPage extends AppCompatActivity {
 
         final TextView totalTV = (TextView) payView.findViewById(R.id.totalAmoutToPay);
         final TextView totalSelected = (TextView) payView.findViewById(R.id.totalChangeSelected);
+        final TextView totalDue = (TextView) payView.findViewById(R.id.totalChangeDue);
         final Button payButton = (Button) payView.findViewById(R.id.payButton);
         final Button plusButton = (Button) payView.findViewById(R.id.plusButton);
         final Button minusButton = (Button) payView.findViewById(R.id.minusButton);
@@ -406,6 +413,7 @@ public class MainPage extends AppCompatActivity {
         }*/
         totalTV.setText("       À payer: " + String.format("%.2f",number));
         totalSelected.setText("Sélectionné: " + String.format("%.2f",number2));
+
         //lv2.setAdapter(payAdapter);
         //payAdapter.notifyDataSetChanged();
         //final AlertDialog dialog = builder.create();

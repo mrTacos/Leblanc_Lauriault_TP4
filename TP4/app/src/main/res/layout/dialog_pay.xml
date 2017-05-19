@@ -32,6 +32,18 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight=".1" />
+    <TextView
+        android:textColor="#01af18"
+        android:id="@+id/totalChangeDue"
+        android:text="@string/dueAmount"
+        android:layout_weight=".3"
+        android:textSize="22dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight=".1" />
     <ListView
         android:id="@+id/payListView"
         android:layout_weight="8"

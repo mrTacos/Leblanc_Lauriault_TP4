@@ -21,4 +21,5 @@
     <string name="toastCreateList">Liste de produit créée !</string>
     <string name="toastDeleteInv">Produits de l\'inventaire supprimés !</string>
     <string name="noMoreOfThisProduct">Il n\'y a plus de ce type en inventaire</string>
+    <string name="dueAmount">Montant due</string>
 </resources>
