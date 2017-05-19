@@ -304,6 +304,17 @@ public class MainPage extends AppCompatActivity {
             this.showDiscountInterface();
             return true;
         }
+        if(id == R.id.action_seeCashRegister)
+        {
+            String toShow = "";
+            for (ArgentObjet ao:ArgentObjet.values())
+            {
+                toShow+= ao.nomLisible() + " :" + this.serviceArgentLL.getTiroir().nombreItemsPour(ao);
+                toShow += "\n";
+            }
+            Toast.makeText(this, toShow, Toast.LENGTH_LONG).show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

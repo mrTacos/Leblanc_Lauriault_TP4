@@ -65,7 +65,7 @@ public class ServiceArgentLL implements ServiceArgent
 
         ArgentObjet startingPointAfterFailure = null;
 
-        while (montantArrondiCent >=4)
+        while (montantArrondiCent >=5)
         {
             for (ArgentObjet ag : ArgentObjet.values())
             {
@@ -156,7 +156,7 @@ public class ServiceArgentLL implements ServiceArgent
 
             }
         }
-        return (tempMontant >= Double.valueOf(df.format(montantCible)));
+        return (tempMontant >= Double.valueOf(df.format(montantCible).replace(',','.')));
     }
 
     public double arrondiA5sous(double montant) throws ArrondiNombreNegatifException {
