@@ -252,6 +252,7 @@ public class MainPage extends AppCompatActivity {
         } catch (ArrondiNombreNegatifException e) {
             due.setText("Montant due: ");
         }
+        totalSelected.setText(R.string.select + String.format("%.2f",number2));
         payAdapter.notifyDataSetChanged();
     }
 
@@ -414,6 +415,8 @@ public class MainPage extends AppCompatActivity {
         totalTV.setText("       À payer: " + String.format("%.2f",number));
         totalSelected.setText("Sélectionné: " + String.format("%.2f",number2));
 
+        totalTV.setText(R.string.toPay + String.format("%.2f",number));
+        totalSelected.setText(R.string.select + String.format("%.2f",number2));
         //lv2.setAdapter(payAdapter);
         //payAdapter.notifyDataSetChanged();
         //final AlertDialog dialog = builder.create();
@@ -426,7 +429,7 @@ public class MainPage extends AppCompatActivity {
             {
                 if (payAdapter.cll.valeurTotale() < Achat.getTotalFromProducts(currentProductList))
                 {
-                    Toast.makeText(MainPage.this, "Le montant donné par le client ne couvre pas la totalité des frais", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainPage.this,R.string.notAllCost, Toast.LENGTH_LONG).show();
                     return;  
                 }
                 try
@@ -437,14 +440,14 @@ public class MainPage extends AppCompatActivity {
                 catch (EmplacementPleinException | MontantInatteignableException e)
                 {
                     if (e.getClass() == EmplacementPleinException.class)
-                        Toast.makeText(MainPage.this, "Impossible d'ajouter ce montant, car un des emplacements est plein", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainPage.this, R.string.impossibleTo, Toast.LENGTH_LONG).show();
                     if (e.getClass() == MontantInatteignableException.class)
-                        Toast.makeText(MainPage.this, "Impossible de complèter la vente, car la caisse nom comprend pas les pièces et les billet nécessaire à la transaction", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainPage.this, R.string.cantCompleteSale, Toast.LENGTH_LONG).show();
                     payAdapter.cll = new ChangeLL();
                     payAdapter.notifyDataSetChanged();
                     Double number2 = payAdapter.cll.valeurTotale();
                     final TextView totalSelected = (TextView) payView.findViewById(R.id.totalChangeSelected);
-                    totalSelected.setText("Sélectionné: " + String.format("%.2f",number2));
+                    totalSelected.setText(R.string.select + String.format("%.2f",number2));
                     return;
                 }
                 catch (Exception e)
@@ -458,7 +461,7 @@ public class MainPage extends AppCompatActivity {
                 payAdapter.notifyDataSetChanged();
                 Double number2 = payAdapter.cll.valeurTotale();
                 final TextView totalSelected = (TextView) payView.findViewById(R.id.totalChangeSelected);
-                totalSelected.setText("Sélectionné: " + String.format("%.2f",number2));
+                totalSelected.setText(R.string.select + String.format("%.2f",number2));
                 payDialog.dismiss();
             }
         });
