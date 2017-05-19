@@ -22,7 +22,6 @@ import com.squareup.otto.ThreadEnforcer;
 
 import org.Leblanc_Lauriault.tp3.DAL.Achat;
 import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
-import org.Leblanc_Lauriault.tp3.DAL.AchatRepository;
 import org.Leblanc_Lauriault.tp3.DAL.CRUD;
 import org.Leblanc_Lauriault.tp3.DAL.Produit;
 import org.Leblanc_Lauriault.tp3.Event.CheckEvent;
@@ -33,8 +32,12 @@ import org.Leblanc_Lauriault.tp3.Event.PlusEvent;
 import org.Leblanc_Lauriault.tp3.Event.PlusMinusChangeEvent;
 import org.Leblanc_Lauriault.tp3.Exception.ProductNotFoundException;
 import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.ArrondiNombreNegatifException;
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.EmplacementPleinException;
+import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.MontantInatteignableException;
 import org.Leblanc_Lauriault.tp3.R;
 import org.Leblanc_Lauriault.tp3.Helper.ToastHelper;
+import org.Leblanc_Lauriault.tp3.change.ArgentObjet;
+import org.Leblanc_Lauriault.tp3.change.ChangeLL;
 import org.Leblanc_Lauriault.tp3.change.ServiceArgentLL;
 
 import java.util.ArrayList;
@@ -48,9 +51,10 @@ public class MainPage extends AppCompatActivity {
     private DiscountAdapter discountAdapter;
     private PayAdapter payAdapter;
     private ServiceArgentLL serviceArgentLL;
-    private CRUD<Achat> achatRepo;
     private View payView;
     private Dialog payDialog;
+    private View discountView;
+    private Dialog discountDialog;
     public Bus bus = new Bus(ThreadEnforcer.ANY);
 
     @Override
@@ -58,7 +62,6 @@ public class MainPage extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         this.apService = new AchatProduitService(this,this.currentProductList);
-        this.achatRepo = new AchatRepository(this);
         this.serviceArgentLL = new ServiceArgentLL(true);
         setContentView(R.layout.activity_main_page);
 
@@ -69,11 +72,12 @@ public class MainPage extends AppCompatActivity {
 
         discountAdapter = new DiscountAdapter(this,apService.getAllProducts());
         this.createPayInterface();
+        this.createDiscountInterface();
         //payAdapter = new PayAdapter(this,this.serviceArgentLL.getTiroir(),null);
 
         //Change the app name
         this.setTitle("TP4");
-        this.calculateTotalOrderPrice();
+        this.calculerTotalAvantTaxe();
 
         Button pay = (Button)findViewById(R.id.payButton);
         Button scanner = (Button)findViewById(R.id.scannerButton);
@@ -102,6 +106,7 @@ public class MainPage extends AppCompatActivity {
     protected void onPause()
     {
         payAdapter.bus.unregister(this);
+        discountAdapter.bus.unregister(this);
         customAdapter.bus.unregister(this);
         this.apService.bus.unregister(this);
         super.onPause();
@@ -109,6 +114,7 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onResume()
     {
+        discountAdapter.bus.register(this);
         payAdapter.bus.register(this);
         customAdapter.bus.register(this);
         this.apService.bus.register(this);
@@ -180,7 +186,7 @@ public class MainPage extends AppCompatActivity {
                     else
                     {
                         this.currentProductList.add(findProduct);
-                        this.calculateTotalOrderPrice();
+                        this.calculerTotalAvantTaxe();
                     }
                 }
                 else
@@ -205,7 +211,7 @@ public class MainPage extends AppCompatActivity {
         {
             this.currentProductList.get(indexToModify).setQuantite(++passedQuantity);
             customAdapter.notifyDataSetChanged();
-            this.calculateTotalOrderPrice();
+            this.calculerTotalAvantTaxe();
         }
         else
         {
@@ -227,7 +233,7 @@ public class MainPage extends AppCompatActivity {
             this.currentProductList.remove(indexToModify);
             customAdapter.notifyDataSetChanged();
         }
-        this.calculateTotalOrderPrice();
+        this.calculerTotalAvantTaxe();
     }
 
     /***
@@ -239,7 +245,7 @@ public class MainPage extends AppCompatActivity {
     {
         Double number2 = payAdapter.cll.valeurTotale();
         final TextView totalSelected = (TextView) payView.findViewById(R.id.totalChangeSelected);
-        totalSelected.setText("Sélectionné: " + String.valueOf(number2));
+        totalSelected.setText("Sélectionné: " + String.format("%.2f",number2));
         payAdapter.notifyDataSetChanged();
     }
 
@@ -247,7 +253,7 @@ public class MainPage extends AppCompatActivity {
     @Subscribe
     public void ListUpdatedAction(ListUpdatedEvent s)
     {
-        this.calculateTotalOrderPrice();
+        this.calculerTotalAvantTaxe();
         this.customAdapter.notifyDataSetChanged();
     }
     @Override
@@ -256,49 +262,45 @@ public class MainPage extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_createInventory)
         {
+            createDiscountInterface();
+            discountAdapter.bus.register(this);
+            //createPayInterface();
             this.apService.seedDatabase();
             Toast.makeText(this,R.string.toastCreateInv , Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_emptyInventory)
         {
+            createDiscountInterface();
+            discountAdapter.bus.register(this);
+            //createPayInterface();
             this.apService.emptyInventory();
             Toast.makeText(this, R.string.toastEmpty, Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_createList)
         {
+            createDiscountInterface();
+            discountAdapter.bus.register(this);
+            //createPayInterface();
             this.apService.createRandomBuyingList(/*this.currentProductList,this.customAdapter*/);
             Toast.makeText(this, R.string.toastCreateList, Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_deleteDatabase)
         {
+            createDiscountInterface();
+            discountAdapter.bus.register(this);
+            //createPayInterface();
             this.apService.removeInventory();
             Toast.makeText(this, R.string.toastDeleteInv, Toast.LENGTH_SHORT).show();
             return true;
         }
         if(id == R.id.action_modifyDiscount)
         {
-            View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
-            final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
-            builder.setView(view);
-            final ListView lv2 = (ListView) view.findViewById(R.id.discountListView);
-            discountAdapter = new DiscountAdapter(this, apService.getAllProducts());
-            discountAdapter.notifyDataSetChanged();
-            lv2.setAdapter(discountAdapter);
-            Button save = (Button)view.findViewById(R.id.saveButtonDiscount);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            save.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view)
-                {
-                    dialog.dismiss();
-                }
-            });
-
+            //createDiscountInterface();
+            //createPayInterface();
+            this.showDiscountInterface();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -308,6 +310,13 @@ public class MainPage extends AppCompatActivity {
     public void CheckUpdate(CheckEvent s)
     {
         for (Produit p:apService.getAllProducts())
+        {
+            if(s.produit.equals(p))
+            {
+                p.setDeuxPourUn(s.produit.isDeuxPourUn());
+            }
+        }
+        for (Produit p:this.currentProductList)
         {
             if(s.produit.equals(p))
             {
@@ -327,12 +336,37 @@ public class MainPage extends AppCompatActivity {
         payDialog = builder.create();
     }
 
+    private void createDiscountInterface()
+    {
+        //
+        discountAdapter = new DiscountAdapter(this,this.apService.getAllProducts());
+
+        View view = getLayoutInflater().inflate(R.layout.activity_discount, null);
+        this.discountView = view;
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
+        builder.setView(view);
+        final ListView lv2 = (ListView) view.findViewById(R.id.discountListView);
+        lv2.setAdapter(discountAdapter);
+        discountDialog = builder.create();
+    }
+    private void showDiscountInterface()
+    {
+        final ListView lv2 = (ListView) discountView.findViewById(R.id.discountListView);
+        Button save = (Button)discountView.findViewById(R.id.saveButtonDiscount);
+        discountDialog.show();
+        save.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                discountDialog.dismiss();
+            }
+        });
+    }
     private void showPayInterface()
     {
-
         Double number = null;
         try {
-            number = this.serviceArgentLL.arrondiA5sous(Achat.getTotalFromProducts(currentProductList));
+            number =  this.serviceArgentLL.arrondiA5sous(Achat.getTotalFromProducts(currentProductList));
         } catch (ArrondiNombreNegatifException e) {
             e.printStackTrace();
         }
@@ -358,8 +392,8 @@ public class MainPage extends AppCompatActivity {
         {
             e.printStackTrace();
         }*/
-        totalTV.setText("       À payer: " + String.valueOf(number));
-        totalSelected.setText("Sélectionné: " + String.valueOf(number2));
+        totalTV.setText("       À payer: " + String.format("%.2f",number));
+        totalSelected.setText("Sélectionné: " + String.format("%.2f",number2));
         //lv2.setAdapter(payAdapter);
         //payAdapter.notifyDataSetChanged();
         //final AlertDialog dialog = builder.create();
@@ -370,6 +404,33 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+                if (payAdapter.cll.valeurTotale() < Achat.getTotalFromProducts(currentProductList))
+                {
+                    Toast.makeText(MainPage.this, "Le montant donné par le client ne couvre pas la totalité des frais", Toast.LENGTH_LONG).show();
+                    return;  
+                }
+                try
+                {
+                    serviceArgentLL.ajouterChangeDuClient(payAdapter.cll);
+                    serviceArgentLL.calculerChange(payAdapter.cll.valeurTotale() - Achat.getTotalFromProducts(currentProductList));
+                }
+                catch (EmplacementPleinException | MontantInatteignableException e)
+                {
+                    if (e.getClass() == EmplacementPleinException.class)
+                        Toast.makeText(MainPage.this, "Impossible d'ajouter ce montant, car un des emplacements est plein", Toast.LENGTH_LONG).show();
+                    if (e.getClass() == MontantInatteignableException.class)
+                        Toast.makeText(MainPage.this, "Impossible de complèter la vente, car la caisse nom comprend pas les pièces et les billet nécessaire à la transaction", Toast.LENGTH_LONG).show();
+                    payAdapter.cll = new ChangeLL();
+                    payAdapter.notifyDataSetChanged();
+                    Double number2 = payAdapter.cll.valeurTotale();
+                    final TextView totalSelected = (TextView) payView.findViewById(R.id.totalChangeSelected);
+                    totalSelected.setText("Sélectionné: " + String.format("%.2f",number2));
+                    return;
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
                 apService.payerLesProduit();
                 payDialog.dismiss();
             }
@@ -385,17 +446,28 @@ public class MainPage extends AppCompatActivity {
             t.setText(String.format("%.2f$",0.0d));
             return;
         }
-        Produit prod;
+        /*Produit prod;
         double count = 0;
         for (int i =0;i <customAdapter.getCount();i++ ){
 
             prod = (Produit) customAdapter.getItem(i);
             count += prod.getPrixAvantTaxe() * prod.getQuantite();
         }
-        String mT = String.valueOf(count);
-        t.setText(String.format("%.2f$",count));
+        String mT = String.valueOf(count);*/
+
+        t.setText(String.format("%.2f$",Achat.getTotalFromProducts(this.currentProductList)));
     }
 
+    private void calculerTotalAvantTaxe()
+    {
+        TextView t = (TextView)findViewById(R.id.totalPrice);
+        double count = 0;
+        for (Produit p:this.currentProductList)
+        {
+            count += p.getPrixAvantTaxe() * p.getQuantite();
+        }
+        t.setText(String.format("%.2f$",count));
+    }
 
     /**
      * Create and handle the item creation menu

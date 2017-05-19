@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 /**
  * Makes one file per product. Uses the id as the file name.
  */
+/*
 public class ProduitRepository implements CRUD<Produit>
 {
 
@@ -56,7 +57,8 @@ public class ProduitRepository implements CRUD<Produit>
         }
     }
 
-    /*public Produit getRandomProduct() throws EmptyInventoryException
+    */
+/*public Produit getRandomProduct() throws EmptyInventoryException
     {
         synchronized (classe)
         {
@@ -67,7 +69,8 @@ public class ProduitRepository implements CRUD<Produit>
 
             return (products.get(r.nextInt(products.size())));
         }
-    }*/
+    }*//*
+
 
     public Produit getByUPC(String pUPC) throws ProductNotFoundException
     {
@@ -200,3 +203,4 @@ public class ProduitRepository implements CRUD<Produit>
     }
 
 }
+*/

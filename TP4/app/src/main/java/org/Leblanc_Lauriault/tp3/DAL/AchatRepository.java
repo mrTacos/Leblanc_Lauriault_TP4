@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * Makes one file per product. Uses the id as the file name.
  */
+/*
 public class AchatRepository implements CRUD<Achat>
 {
 
@@ -23,10 +24,12 @@ public class AchatRepository implements CRUD<Achat>
     private File fullPath;
 
 
-    /**
+    */
+/**
      * Créer un nouveau repository d'achat
      * @param c le context
-     */
+     *//*
+
     public AchatRepository(Context c)
     {
         this.fullPath = new File(c.getFilesDir().getPath() + "/Achat");
@@ -35,10 +38,12 @@ public class AchatRepository implements CRUD<Achat>
     }
 
 
-    /**
+    */
+/**
      * Permet d'obtenir tout les achats dans le fichier.
      * @return tout les achats sauvegardés
-     */
+     *//*
+
     public List<Achat> getAll()
     {
         synchronized (classe)
@@ -70,10 +75,12 @@ public class AchatRepository implements CRUD<Achat>
 
 
 
-    /**
+    */
+/**
      * Supprime un achat (un fichier) avec un certain ID
      * @param o le ID de l'achat à supprimer.
-     */
+     *//*
+
     @Override
     public void deleteOne(Long o)
     {
@@ -84,13 +91,15 @@ public class AchatRepository implements CRUD<Achat>
         }
     }
 
-    /**
+    */
+/**
      * Insère un achat dans les fichier.
      * Un dossier Achat est créé si jamais il n'existe pas
      * Le dossier sert de classification pour organiser le contenu et augmenter la vitesse des "requêtes"
      * @param a achat à inséré dans les fichiers
      * @return retourne le ID de l'achat créé
-     */
+     *//*
+
     public long save(Achat a)
     {
         synchronized (classe)
@@ -123,11 +132,13 @@ public class AchatRepository implements CRUD<Achat>
 
 
 
-    /**
+    */
+/**
      * Cherche un achat avec son ID dans le sytème de fichier.
      * @param id le ID de l'achat à rechercher
      * @return retourne l'achat avec le ID correspondant
-     */
+     *//*
+
     @Override
     public Achat getById(Long id)
     {
@@ -153,37 +164,45 @@ public class AchatRepository implements CRUD<Achat>
     }
 
 
-    /**
+    */
+/**
      * Supprime le storage au complet avec tout les achats à l'intérieur.
-     */
+     *//*
+
     public void deleteStorage()
     {
         deleteFolder(this.fullPath);
     }
 
-    /**
+    */
+/**
      * Supprime tout les achats et recréer le storage avec le système de fichier.
-     */
+     *//*
+
     public void deleteAll()
     {
         deleteStorage();
         createStorage();
     }
 
-    /**
+    */
+/**
      * Créer le storage avec le système de fichier complet.
-     */
+     *//*
+
     public void createStorage()
     {
         this.fullPath.mkdirs();
     }
 
 
-    /**
+    */
+/**
      * Permet d'obtenir le prochain ID disponible pour nommer le fichier.
      * @return
      * @return
-     */
+     *//*
+
     private long nextAvailableId()
     {
         synchronized (classe)
@@ -197,10 +216,12 @@ public class AchatRepository implements CRUD<Achat>
     }
 
 
-    /**
+    */
+/**
      * Supprime le dossier d'achat au complet
      * @param folder
-     */
+     *//*
+
     private static void deleteFolder(File folder)
     {
         try
@@ -226,3 +247,4 @@ public class AchatRepository implements CRUD<Achat>
     }
 
 }
+*/

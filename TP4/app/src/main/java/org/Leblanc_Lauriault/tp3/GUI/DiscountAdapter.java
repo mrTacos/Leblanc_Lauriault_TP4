@@ -57,6 +57,7 @@ public class DiscountAdapter extends ArrayAdapter<Produit> {
                 CheckEvent e = new CheckEvent();
                 e.produit = (Produit)checkBox.getTag();
                 e.produit.setDeuxPourUn(!e.produit.isDeuxPourUn());
+                bus.post(e);
                 apService.modifierProduit(e.produit);
             }
         });
