@@ -142,7 +142,10 @@ public class AchatProduitService
             p.setPrixAvantTaxe(productPrice[i]);
             p.setQuantite(10);
             p.setDeuxPourUn(false);
-            p.setTypeTaxe(TaxeType.taxeEssentiel);
+            if (p.getNom().equals("Sac de chips"))
+                p.setTypeTaxe(TaxeType.taxeAutre);
+            else
+                p.setTypeTaxe(TaxeType.taxeEssentiel);
             this.pRepo.save(p);
         }
         ListUpdatedEvent e = new ListUpdatedEvent();

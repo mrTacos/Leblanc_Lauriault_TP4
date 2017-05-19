@@ -5,6 +5,7 @@ import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.ArrondiNombreNegatifExc
 import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.MontantInatteignableException;
 import org.Leblanc_Lauriault.tp3.Exception.exception_TP2.TransactionMontantInvalidException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class ServiceArgentLL implements ServiceArgent
 
         ArgentObjet startingPointAfterFailure = null;
 
-        while (montantArrondiCent != 0)
+        while (montantArrondiCent >=4)
         {
             for (ArgentObjet ag : ArgentObjet.values())
             {
@@ -137,6 +138,9 @@ public class ServiceArgentLL implements ServiceArgent
 
         TiroirCaisse temp = this.tcl;
         double tempMontant = 0;
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(2);
         for (ArgentObjet objet:ArgentObjet.values())
         {
             try
@@ -152,7 +156,7 @@ public class ServiceArgentLL implements ServiceArgent
 
             }
         }
-        return (tempMontant >= montantCible);
+        return (tempMontant >= Double.valueOf(df.format(montantCible)));
     }
 
     public double arrondiA5sous(double montant) throws ArrondiNombreNegatifException {
