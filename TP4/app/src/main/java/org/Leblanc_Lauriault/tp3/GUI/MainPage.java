@@ -298,7 +298,8 @@ public class MainPage extends AppCompatActivity {
         }
         if(id == R.id.action_modifyDiscount)
         {
-            //createDiscountInterface();
+            createDiscountInterface();
+            discountAdapter.bus.register(this);
             //createPayInterface();
             this.showDiscountInterface();
             return true;
@@ -431,7 +432,14 @@ public class MainPage extends AppCompatActivity {
                 {
                     e.printStackTrace();
                 }
+
                 apService.payerLesProduit();
+
+                payAdapter.cll = new ChangeLL();
+                payAdapter.notifyDataSetChanged();
+                Double number2 = payAdapter.cll.valeurTotale();
+                final TextView totalSelected = (TextView) payView.findViewById(R.id.totalChangeSelected);
+                totalSelected.setText("Sélectionné: " + String.format("%.2f",number2));
                 payDialog.dismiss();
             }
         });
