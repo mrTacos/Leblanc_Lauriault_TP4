@@ -6,6 +6,7 @@
     <string name="description">Description</string>
     <string name="barCode">Barcode</string>
     <string name="scan">SCAN</string>
+    <string name="seeCashRegister">See the cash register</string>
     <string name="pay">PAY</string>
     <string name="payAmount">The amount to be paid is :</string>
     <string name="itemName">The item name is</string>

@@ -32,4 +32,10 @@
         android:title="@string/applyDiscount"
         android:orderInCategory="104"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_seeCashRegister"
+        android:title="@string/seeCashRegister"
+        android:orderInCategory="105"
+        app:showAsAction="never" />
 </menu>
