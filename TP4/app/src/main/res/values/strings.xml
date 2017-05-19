@@ -7,6 +7,7 @@
     <string name="scan">SCANNER</string>
     <string name="pay">PAYER</string>
     <string name="payAmount">Le montant a payer est de :</string>
+    <string name="seeCashRegister">Voir la caisse</string>
     <string name="itemName">Le nom de l\'item</string>
     <string name="nomArgent">Nom argent: </string>
     <string name="createInventory">Créer inventaire</string>
