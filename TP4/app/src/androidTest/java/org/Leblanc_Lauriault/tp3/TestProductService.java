@@ -8,7 +8,7 @@ import junit.framework.Assert;
 import org.Leblanc_Lauriault.tp3.DAL.Achat;
 import org.Leblanc_Lauriault.tp3.DAL.AchatProduitService;
 import org.Leblanc_Lauriault.tp3.DAL.GenericRepository;
-import org.Leblanc_Lauriault.tp3.DAL.ProduitRepository;
+//import org.Leblanc_Lauriault.tp3.DAL.ProduitRepository;
 import org.Leblanc_Lauriault.tp3.DAL.TaxeType;
 import org.Leblanc_Lauriault.tp3.Exception.ProductNotFoundException;
 import org.Leblanc_Lauriault.tp3.GUI.MainPage;

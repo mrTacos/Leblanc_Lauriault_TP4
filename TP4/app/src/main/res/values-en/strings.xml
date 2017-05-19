@@ -20,4 +20,9 @@
     <string name="toastCreateList">Product list created !</string>
     <string name="toastDeleteInv">Products in the inventory deleted !</string>
     <string name="noMoreOfThisProduct">There is no more of this product in the inventory</string>
+    <string name="select">"Select: "</string>
+    <string name="toPay">       To pay: </string>
+    <string name="impossibleTo"> It\'s impossible to add this amount because one of the slots is full</string>
+    <string name="notAllCost"> The amount given by the customer is not enough to pay the bill</string>
+    <string name="cantCompleteSale">It\'s impossible to complete the sale because the billing machine doesn\'t have the found for this transaction</string>
 </resources>

@@ -20,4 +20,9 @@
     <string name="toastCreateList">Liste de produit créée !</string>
     <string name="toastDeleteInv">Produits de l\'inventaire supprimés !</string>
     <string name="noMoreOfThisProduct">Il n\'y a plus de ce type en inventaire</string>
+    <string name="select">"Sélectionné: "</string>
+    <string name="toPay">       À payer: </string>
+    <string name="impossibleTo"> Impossible d\'ajouter ce montant, car un des emplacements est plein</string>
+    <string name="notAllCost"> Le montant donné par le client ne couvre pas la totalité des frais</string>
+    <string name="cantCompleteSale">Impossible de complèter la vente, car la caisse nom comprend pas les pièces et les billet nécessaire à la transaction</string>
 </resources>
